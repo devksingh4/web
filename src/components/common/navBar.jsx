@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import INFO from "../../data/user";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExternalLinkSquare } from "@fortawesome/free-solid-svg-icons";
 import "./styles/navBar.css";
 
 const NavBar = (props) => {
@@ -25,12 +26,12 @@ const NavBar = (props) => {
 							<li
 								className='nav-item'
 							>
-								<a href={INFO.main.resume} target="_blank">Resume</a>
+								<a href={INFO.main.resume} target="_blank">Resume <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
 							</li>
 							<li
 								className='nav-item'
 							>
-								<a href={INFO.main.cv} target="_blank">CV</a>
+								<a href={INFO.main.cv} target="_blank">CV <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
 							</li>
 							<li
 								className={
