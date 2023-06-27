@@ -16,7 +16,6 @@
 .articles-main-container {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	margin: 0;
 	padding-top: 120px;
 }
@@ -28,7 +27,6 @@
 
 .articles-wrapper {
 	padding-top: 50px;
-	padding-bottom: 50px;
 	display: flex;
 	flex-direction: column;
 }

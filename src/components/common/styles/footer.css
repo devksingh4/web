@@ -3,8 +3,8 @@
 .footer {
 	display: flex;
 	padding-top: 25px;
-	margin-top: 50px;
 	padding-bottom: 25px;
+	margin-top: 20px;
 	align-items: center;
 }
 
@@ -45,7 +45,7 @@
 	text-align: right;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 900px) {
 	.footer {
 		flex-direction: column;
 		height: 85px;
