@@ -1,14 +1,12 @@
 .logo {
 	border-radius: 50%;
 	display: block;
+	background: white;
 	margin: 0;
 	padding: 0;
 }
-@media (max-width: 600px) {
+@media (max-width: 930px) {
 	.logo {
-		border-radius: 50%;
-		display: block;
-		margin: 0;
-		padding: 0;
+		display: none;
 	}
 }
