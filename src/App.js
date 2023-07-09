@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route, Outlet, useLocation } from "react-router-dom";
+import { Routes, Route, Outlet, useLocation, Navigate } from "react-router-dom";
 import ReactGA from "react-ga4";
 import { motion } from "framer-motion"; 
 
@@ -62,6 +62,8 @@ function App() {
 					<Route path="/articles" element={<Articles />} />
 					<Route path="/article/:slug" element={<ReadArticle />} />
 					<Route path="/contact" element={<Contact />} />
+					<Route path="/files/resume.pdf" element={<Navigate to='https://files.devksingh.com/resume.pdf'/>} />
+					<Route path="/files/cv.pdf" element={<Navigate to='https://files.devksingh.com/cv.pdf' />} />
 					<Route path="*" element={<Notfound />} />
 				</Route>
 			</Routes>

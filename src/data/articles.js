@@ -33,7 +33,7 @@ function cmmvt() {
 					</div>
 				</div>
 				<br></br>
-				<a href="/files/cmmvt-presentation.pdf">View Slides</a>
+				<a href="https://files.devksingh.com/cmmvt-presentation.pdf">View Slides</a>
 			</React.Fragment>
 		),
 	};

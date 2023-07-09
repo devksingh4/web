@@ -5,8 +5,8 @@ const INFO = {
 		email: "dev@devksingh.com",
 		email2: "dsingh14@illinois.edu",
 		logo: "../android-chrome-512x512.png",
-		resume: "/files/resume.pdf",
-		cv: "/files/cv.pdf"
+		resume: "https://files.devksingh.com/resume.pdf",
+		cv: "https://files.devksingh.com/cv.pdf"
 	},
 
 	socials: {
