@@ -17,7 +17,7 @@ const INFO = {
 
 	homepage: {
 		title: "Hi, I'm Dev!",
-		description: "I am a sophomore majoring in Computer Science at the University of Illinois Urbana-Champaign. I am interested in Deep Learning as well as cloud technologies. I have previously worked with tools including: PyTorch, Keras, SLURM, scikit-learn, Express.js, Docker, Kubernetes, Canonical MaaS/Juju, Chef, and Ansible."
+		description: "I am a sophomore majoring in Computer Science at the University of Illinois Urbana-Champaign interested in applied machine learning. I have previously worked with tools including: PyTorch, scikit-learn, Express.js, Docker, Kubernetes, AWS Lambda, PostgreSQL, DynamoDB, Redis, and MongoDB."
 	},
 
 	articles: {
@@ -32,6 +32,13 @@ const INFO = {
 			logo: "",
 			linkText: "View Site",
 			link: "https://acm.illinois.edu",
+		},
+		{
+			title: "Linkry",
+			description: "Linkry is an enterprise link shortener application with support for role-based access control through Azure Active Directory, including group link management delegation.",
+			logo: "",
+			linkText: "View Repository",
+			link: "https://github.com/acm-uiuc/linkry",
 		},
 		{
 			title: "The Red Alliance",
