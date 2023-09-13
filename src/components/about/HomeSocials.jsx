@@ -18,7 +18,7 @@ const HomeSocials = () => {
 			<div style={{ marginTop: '-4em' }}></div>
 			<h3>Dev Singh</h3>
 			<div style={{ marginTop: '-1em' }}></div>
-			<h5>UIUC CS Student Interested in Machine Learning</h5>
+			<h5>CS '25 @ UIUC | Interested in Applied Machine Learning</h5>
 			<div className="nodec">
 				<a href="https://cs.illinois.edu" target="_blank" rel="noreferrer">
 					<div className="social-icon">
