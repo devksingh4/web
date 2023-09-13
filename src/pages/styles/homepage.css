@@ -43,9 +43,9 @@
 
 .homepage-image-wrapper {
 	overflow: hidden;
-	border-radius: 4%;
+	border-radius: 1%;
 	transform: rotate(0deg);
-	width: 80%;
+	width: 75%;
 	margin-right: 30px;
 }
 
