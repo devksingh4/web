@@ -17,7 +17,7 @@ const INFO = {
 
 	homepage: {
 		title: "Hi, I'm Dev!",
-		description: "I am a sophomore majoring in Computer Science at the University of Illinois Urbana-Champaign interested in applied machine learning. I have previously worked with tools including: PyTorch, scikit-learn, Express.js, Docker, Kubernetes, AWS Lambda, PostgreSQL, DynamoDB, Redis, and MongoDB."
+		description: "I am a sophomore majoring in Computer Science at the University of Illinois Urbana-Champaign interested in machine learning engineering. I have previously worked with tools including: PyTorch, scikit-learn, Express.js, Docker, Kubernetes, AWS Lambda, PostgreSQL, DynamoDB, Redis, and MongoDB."
 	},
 
 	articles: {
