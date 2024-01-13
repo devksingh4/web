@@ -114,7 +114,10 @@ const Homepage = () => {
 							<div className="subtitle homepage-subtitle">
 								{INFO.homepage.description}
 							</div>
-
+							<div className="subtitle homepage-subtitle">
+								For Summer 2024, I will be working at Capital One as part of the Technology Internship Program in McLean, VA.
+							</div>
+							
 							<div className="subtitle homepage-subtitle">
 								Last summer, I worked as a Digital and Analytics Intern at the Cat Digital division of 
 								{} Caterpillar on the MLOps and Analytics Execution team in Chicago. There, I worked to <a class="hmlink" href="https://www.linkedin.com/feed/update/urn:li:activity:7095786626395639808/">develop event-based anomaly detection systems </a> 
