@@ -25,6 +25,14 @@ const INFO = {
 	},
 	projects: [
 		{
+			title: "Kilpi",
+			description:
+				"Kilpi streamlines exchanging information with an intuitive submission portal and messaging tool that seamlessly integrates into your business workflow. Kilpi is the ultimate solution for businesses seeking a balance of compliance, security, and convenience in their data exchange practices.",
+			logo: "",
+			linkText: "View Site",
+			link: "https://kilpiapp.com",
+		},
+		{
 			title: "Association for Computing Machinery @ UIUC",
 			description:
 				"Architected and led infrastructure modernization, including implementing Azure Active Directory, mail server, custom link shortener, Kubernetes cluster, and central events system. Utilized AWS Lambda and Dynamo DB to automate frequent business processes, including event ticket sales and new member provisioning.",
