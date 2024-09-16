@@ -114,10 +114,7 @@ const Homepage = () => {
 							<div className="subtitle homepage-subtitle">
 								{INFO.homepage.description}
 							</div>
-							<div className="subtitle homepage-subtitle">
-								For Summer 2024, I will be working at Capital One as part of the Technology Internship Program in McLean, VA.
-							</div>
-							
+						
 							<div className="subtitle homepage-subtitle">
 								During Summer 2024, I worked at Capital One as a Software Engineer Intern. There, I built full-stack fraud detection solutions using technologies such as TypeScript, AWS Fargate, and Kafka that reduced fraud investigation time, fraud losses, and operational costs.
 							</div>
