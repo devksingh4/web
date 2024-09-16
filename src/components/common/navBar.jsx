@@ -28,12 +28,12 @@ const NavBar = (props) => {
 							>
 								<a href={INFO.main.resume} target="_blank">Resume <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
 							</li>
-							<li
+							{/* <li
 								className='nav-item'
 							>
 								<a href={INFO.main.cv} target="_blank">CV <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
-							</li>
-							<li
+							</li> */}
+							{/* <li
 								className={
 									active === "projects"
 										? "nav-item active"
@@ -50,7 +50,7 @@ const NavBar = (props) => {
 								}
 							>
 								<Link to="/articles">Articles</Link>
-							</li>
+							</li> */}
 							<li
 								className={
 									active === "contact"

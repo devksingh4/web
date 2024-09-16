@@ -16,17 +16,17 @@ const Footer = () => {
 							<Link to="/">Home</Link>
 						</li>
 						<li className="footer-nav-link-item">
-							<a href={INFO.main.resume} target="_blank">Resume <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
+							<a href={INFO.main.resume} target="_blank" rel="noreferrer">Resume <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
 						</li>
-						<li className="footer-nav-link-item">
+						{/* <li className="footer-nav-link-item">
 							<a href={INFO.main.cv} target="_blank">CV <FontAwesomeIcon icon={faExternalLinkSquare} /> </a>
-						</li>
-						<li className="footer-nav-link-item">
+						</li> */}
+						{/* <li className="footer-nav-link-item">
 							<Link to="/projects">Projects</Link>
 						</li>
 						<li className="footer-nav-link-item">
 							<Link to="/articles">Articles</Link>
-						</li>
+						</li> */}
 						<li className="footer-nav-link-item">
 							<Link to="/contact">Contact</Link>
 						</li>

@@ -18,9 +18,21 @@ const HomeSocials = () => {
 			<div style={{ marginTop: '-4em' }}></div>
 			<h3>Dev Singh</h3>
 			<div style={{ marginTop: '-1em' }}></div>
-			<h5>CS '25 @ UIUC | Interested in Applied Machine Learning</h5>
+			<h5>BS/MCS '26 @ UIUC | Interested in Machine Learning Engineering</h5>
 			<div className="nodec">
-				<a href="https://cs.illinois.edu" target="_blank" rel="noreferrer">
+				<a href={INFO.main.resume} target="_blank" rel="noreferrer">
+					<div className="social-icon">
+						<FontAwesomeIcon
+							icon={faLink}
+							className="social-icon"
+						/>
+						<a className="pdflink">Resume</a>
+					</div>
+				</a>
+			</div>
+			<div style={{ marginTop: '1em' }}></div>
+			<div className="nodec">
+				<a href="https://siebelschool.illinois.edu" target="_blank" rel="noreferrer">
 					<div className="social-icon">
 						<FontAwesomeIcon
 							icon={faGraduationCap}
@@ -32,7 +44,7 @@ const HomeSocials = () => {
 			</div>
 
 			<div className="nodec">
-				<a href={INFO.socials.github} target="_blank" rel="noreferrer">
+				<a target="_blank" rel="noreferrer">
 					<div className="social-icon">
 						<FontAwesomeIcon
 							icon={faMapMarker}
@@ -66,18 +78,7 @@ const HomeSocials = () => {
 					<div className="social-text">{INFO.main.email2}</div>
 				</a>
 			</div>
-			<div className="nodec">
-				<a href={INFO.main.resume} target="_blank" rel="noreferrer">
-					<div className="social-icon">
-						<FontAwesomeIcon
-							icon={faLink}
-							className="social-icon"
-						/>
-						<a className="pdflink">Resume</a>
-					</div>
-				</a>
-			</div>
-			<div className="nodec">
+			{/* <div className="nodec">
 				<a href={INFO.main.cv} target="_blank" rel="noreferrer">
 					<div className="social-icon">
 						<FontAwesomeIcon
@@ -87,7 +88,7 @@ const HomeSocials = () => {
 						<a className="pdflink">Curriculum Vitae</a>
 					</div>
 				</a>
-			</div>
+			</div> */}
 		</div>
 	);
 };

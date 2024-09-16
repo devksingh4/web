@@ -5,19 +5,18 @@ const INFO = {
 		email: "dev@devksingh.com",
 		email2: "dsingh14@illinois.edu",
 		logo: "../android-chrome-512x512.png",
-		resume: "https://files.devksingh.com/Dev_Singh_resume.pdf",
-		cv: "https://files.devksingh.com/cv.pdf"
+		resume: "/Dev_Singh_resume.pdf",
 	},
 
 	socials: {
 		github: "https://github.com/devksingh4",
 		linkedin: "https://linkedin.com/in/dev-singh4",
-		twitter: "https://twitter.com/_andro_studios_"
+		// twitter: "https://twitter.com/_andro_studios_"
 	},
 
 	homepage: {
 		title: "Hi, I'm Dev!",
-		description: "I am a sophomore majoring in Computer Science at the University of Illinois Urbana-Champaign interested in applied machine learning. I have previously worked with tools including: PyTorch, scikit-learn, Express.js, Docker, Kubernetes, AWS Lambda, PostgreSQL, DynamoDB, Redis, and MongoDB."
+		description: "I am currently a senior pursuing a combined BS/MCS in Computer Science at the University of Illinois Urbana-Champaign (UIUC). I have hands-on experience in machine learning engineering and distributed systems."
 	},
 
 	articles: {
@@ -32,13 +31,6 @@ const INFO = {
 			logo: "",
 			linkText: "View Site",
 			link: "https://acm.illinois.edu",
-		},
-		{
-			title: "Linkry",
-			description: "Linkry is an enterprise link shortener application with support for role-based access control through Azure Active Directory, including group link management delegation.",
-			logo: "",
-			linkText: "View Repository",
-			link: "https://github.com/acm-uiuc/linkry",
 		},
 		{
 			title: "The Red Alliance",

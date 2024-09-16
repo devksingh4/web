@@ -95,7 +95,7 @@ const Homepage = () => {
 							<div className="homepage-image-container" style={{order: 0}}>
 								<div className="homepage-image-wrapper">
 									<img
-										src="https://files.devksingh.com/mecr.png"
+										src="/dsingh14.jpg"
 										alt="Dev Singh"
 										className="homepage-image"
 									/>
@@ -116,15 +116,15 @@ const Homepage = () => {
 							</div>
 
 							<div className="subtitle homepage-subtitle">
-								Last summer, I worked as a Digital and Analytics Intern at the Cat Digital division of 
-								{} Caterpillar on the MLOps and Analytics Execution team in Chicago. There, I worked to <a class="hmlink" href="https://www.linkedin.com/feed/update/urn:li:activity:7095786626395639808/">develop event-based anomaly detection systems </a> 
-								that drive machine analytics and after-market service sales. I was also previously a Software Engineering Intern at <a class="hmlink" href="https://zaktilabs.com">Zakti Security Labs</a>, developing 
-								security and auditing applications for clients of all sizes.
+								During Summer 2024, I worked at Capital One as a Software Engineer Intern. There, I built full-stack fraud detection solutions using technologies such as TypeScript, AWS Fargate, and Kafka that reduced fraud investigation time, fraud losses, and operational costs.
 							</div>
 							<div className="subtitle homepage-subtitle">
-								I am a course assistant for <a className="hmlink" href="https://cs.illinois.edu/academics/courses/cs357">CS 357 (Numerical Methods)</a> at UIUC. I am also the Treasurer, as well as Infrastructure Lead Architect, for <a class="hmlink" href="https://acm.illinois.edu">ACM @ Illinois</a>. 
-								I was also a student researcher, working on Computer Vision models using vision transformers, at the <a class="hmlink" href="https://timan.cs.illinois.edu/ir/">Text Information Management and Analysis Group at the University of Illinois</a>, 
-								advised by Prof. ChengXiang Zhai and Prof. Ismini Lourentzou (Virginia Tech). 
+								During Summer and Fall 2023, I worked at Caterpillar's Cat Digital division as a Software Engineer/MLOps Intern, where I focued on optimizing anomaly detection systems and increasing system performance by building a distributed machine learning and rules-based runner architecture. This work boosted after-market service sales by increasing the number of supported assets. 
+
+								Previously, I was also a Software Engineer Intern at Zakti Security Labs, where I developed custom tools to prevent unauthorized access to client systems and performed cybersecurity audits.
+							</div>
+							<div className="subtitle homepage-subtitle">
+								At UIUC, I serve as a Course Assistant for CS 357 (Numerical Methods), CS 341 (Systems Programming) and CS 210 (Ethics). I am an inI am also the Infrastructure Chair, and previously Treasurer, for ACM @ UIUC, where I led modernization initiatives that reduced application downtime by 40%. Additionally, I worked on deep learning research, focusing on contrastive multimodal video transformers, under the supervision of Prof. ChengXiang Zhai and Prof. Ismini Lourentzou.
 							</div>
 						</div>
 						</div>
@@ -150,7 +150,7 @@ const Homepage = () => {
 									className="homepage-social-icon"
 								/>
 							</a>
-							<a
+							{/* <a
 								href={INFO.socials.twitter}
 								target="_blank"
 								rel="noreferrer"
@@ -159,7 +159,7 @@ const Homepage = () => {
 									icon={faTwitter}
 									className="homepage-social-icon"
 								/>
-							</a>
+							</a> */}
 						</div>
 						{/* <div className="homepage-after-title">
 							<div className="homepage-articles">

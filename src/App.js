@@ -58,12 +58,11 @@ function App() {
 			<Routes>
 				<Route element={<AnimationLayout />}>
 					<Route path="/" element={<Homepage />} />
-					<Route path="/projects" element={<Projects />} />
+					{/* <Route path="/projects" element={<Projects />} />
 					<Route path="/articles" element={<Articles />} />
-					<Route path="/article/:slug" element={<ReadArticle />} />
+					<Route path="/article/:slug" element={<ReadArticle />} /> */}
 					<Route path="/contact" element={<Contact />} />
-					<Route path="/files/resume.pdf" element={<Navigate to='https://files.devksingh.com/resume.pdf'/>} />
-					<Route path="/files/cv.pdf" element={<Navigate to='https://files.devksingh.com/cv.pdf' />} />
+					<Route path="/files/resume.pdf" element={<Navigate to='/Dev_Singh_resume.pdf'/>} />
 					<Route path="*" element={<Notfound />} />
 				</Route>
 			</Routes>
