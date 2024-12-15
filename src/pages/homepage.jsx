@@ -124,7 +124,7 @@ const Homepage = () => {
 								Previously, I was also a Software Engineer Intern at Zakti Security Labs, where I developed custom tools to prevent unauthorized access to client systems and performed cybersecurity audits.
 							</div>
 							<div className="subtitle homepage-subtitle">
-								At UIUC, I serve as a Course Assistant for CS 357 (Numerical Methods), CS 341 (Systems Programming) and CS 210 (Ethics). I am an inI am also the Infrastructure Chair, and previously Treasurer, for ACM @ UIUC, where I led modernization initiatives that reduced application downtime by 40%. Additionally, I worked on deep learning research, focusing on contrastive multimodal video transformers, under the supervision of Prof. ChengXiang Zhai and Prof. Ismini Lourentzou.
+								At UIUC, I serve as a Course Assistant for CS 357 (Numerical Methods) and CS 341 (Systems Programming). I am also the Infrastructure Chair, and previously Treasurer, for ACM @ UIUC, where I led modernization initiatives that reduced application downtime by 40%. Additionally, I worked on deep learning research, focusing on contrastive multimodal video transformers, under the supervision of Prof. ChengXiang Zhai and Prof. Ismini Lourentzou.
 							</div>
 						</div>
 						</div>
