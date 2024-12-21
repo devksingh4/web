@@ -13,6 +13,7 @@ import { ExperienceCard } from '../../components/ExperienceCard';
 import { EducationCard } from '../../components/EducationCard';
 import { ScrollHint } from '../../components/ScrollHint';
 import { throttle } from 'lodash-es';
+import NiceLink from '../../components/NiceLink';
 
 // This modifies how fast you scroll past the hero (desktop only)
 const SCROLL_MULTIPLIER = 2.5;
@@ -145,11 +146,9 @@ const Portfolio: React.FC = () => {
                   src={portfolio.picture}
                   alt={`Picture of ${portfolio.name}`}
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400"
-                />
+                /> 
                 <h3 className="mt-4 font-semibold text-xl">{portfolio.name}</h3>
-                <a href={`mailto:${portfolio.links.email}`} className="text-blue-400 hover:text-blue-300 transition-colors">
-                  {portfolio.links.email}
-                </a>
+                <NiceLink href={`mailto:${portfolio.links.email}`}>{portfolio.links.email}</NiceLink>
               </div>
               
               <div className="flex flex-col items-center md:items-start">
