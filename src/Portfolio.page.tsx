@@ -64,6 +64,7 @@ const Portfolio: React.FC = () => {
       if (nameRef.current) {
         observer.unobserve(nameRef.current);
       }
+      observer.disconnect();
     };
   }, []);
 
