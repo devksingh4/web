@@ -16,7 +16,7 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({experience, id}) 
           </p>
           <ul className="text-gray-300 space-y-2">
             {experience.bullets.map((bullet, index) => (
-              <li key={index} className="list-disc ml-4">
+              <li key={`${id}-${index}`} className="list-disc ml-4">
                 {bullet}
               </li>
             ))}

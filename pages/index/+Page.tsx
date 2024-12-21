@@ -32,10 +32,10 @@ const LinkButtons: React.FC = () => {
 const IconOnlyLinkButtons: React.FC = () => {
   return (
     <div className="flex gap-2 mt-1 flex-wrap place-content-center">
-      <IconLinkButton href={`https://github.com/${portfolio.links.github}`} icon={Github} text="GitHub" />
-      <IconLinkButton href={`https://linkedin.com/in/${portfolio.links.linkedin}`} icon={Linkedin} text="LinkedIn" />
-      <IconLinkButton href={`mailto:${portfolio.links.email}`} icon={Mail} text="Email" />
-      <IconLinkButton href={portfolio.links.resume} icon={FileText} text="Resume" />
+      <IconLinkButton href={`https://github.com/${portfolio.links.github}`} icon={<Github size={24}/>} text="GitHub" />
+      <IconLinkButton href={`https://linkedin.com/in/${portfolio.links.linkedin}`} icon={<Linkedin size={24}/>} text="LinkedIn" />
+      <IconLinkButton href={`mailto:${portfolio.links.email}`} icon={<Mail size={24}/>} text="Email" />
+      <IconLinkButton href={portfolio.links.resume} icon={<FileText size={24}/>} text="Resume" />
     </div>
   )
 }

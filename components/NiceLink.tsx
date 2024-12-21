@@ -8,7 +8,7 @@ export default function NiceLink({
     [key: string]: any;
   }) {
     return (
-      <a className="text-blue-500 hover:text-blue-300 transition-colors" {...props}>
+      <a href={href} className="text-blue-500 hover:text-blue-300 transition-colors" {...props}>
         {children}
       </a>
     );
