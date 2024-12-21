@@ -7,12 +7,12 @@ import {
   FileText,
   GraduationCap
 } from 'lucide-react';
-import { portfolio } from './data';
-import { LinkButton } from './components/LinkButton';
-import { ExperienceCard } from './components/ExperienceCard';
-import { EducationCard } from './components/EducationCard';
-import { ScrollHint } from './components/ScrollHint';
-import { throttle } from 'lodash';
+import { portfolio } from '../../data';
+import { LinkButton } from '../../components/LinkButton';
+import { ExperienceCard } from '../../components/ExperienceCard';
+import { EducationCard } from '../../components/EducationCard';
+import { ScrollHint } from '../../components/ScrollHint';
+import { throttle } from 'lodash-es';
 
 // This modifies how fast you scroll past the hero (desktop only)
 const SCROLL_MULTIPLIER = 2.5;
