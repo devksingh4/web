@@ -12,9 +12,9 @@ import { LinkButton } from './components/LinkButton';
 import { ExperienceCard } from './components/ExperienceCard';
 import { EducationCard } from './components/EducationCard';
 import { ScrollHint } from './components/ScrollHint';
+import { throttle } from 'lodash';
 
 // This modifies how fast you scroll past the hero (desktop only)
-
 const SCROLL_MULTIPLIER = 2.5;
 
 const LinkButtons: React.FC = () => {
@@ -29,8 +29,9 @@ const LinkButtons: React.FC = () => {
 }
 
 const Portfolio: React.FC = () => {
-  const nameRef = useRef<HTMLHeadingElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
   const [isHeader, setIsHeader] = useState(false);
+  const isHeaderRef = useRef<boolean>(isHeader);
   const rafRef = useRef<number | null>(null);
   const wheelDeltaRef = useRef<number>(0);
   const isTouchDevice = useRef<boolean>(false);
@@ -43,16 +44,22 @@ const Portfolio: React.FC = () => {
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0
+      threshold: 0.3 // Prevent glitchiness on mobile
     };
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach(entry => {
-        setIsHeader(!entry.isIntersecting);
+        const newIsHeader = !entry.isIntersecting;
+        if (isHeaderRef.current !== newIsHeader) {
+          setIsHeader(newIsHeader);
+          isHeaderRef.current = newIsHeader;
+        }
       });
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const throttledObserverCallback = isTouchDevice.current ? throttle(observerCallback, 2000) : observerCallback;
+
+    const observer = new IntersectionObserver(throttledObserverCallback, observerOptions);
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
@@ -62,6 +69,7 @@ const Portfolio: React.FC = () => {
       if (nameRef.current) {
         observer.unobserve(nameRef.current);
       }
+      observer.disconnect();
     };
   }, []);
 
@@ -71,7 +79,7 @@ const Portfolio: React.FC = () => {
     }
 
     const handleWheel = (event: WheelEvent) => {
-      if (isHeader) return;
+      if (isHeaderRef.current) return;
       event.preventDefault();
       wheelDeltaRef.current += event.deltaY;
       if (!rafRef.current) {
@@ -95,7 +103,7 @@ const Portfolio: React.FC = () => {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [isHeader, SCROLL_MULTIPLIER]);
+  }, []);
 
   return (
     <div className="bg-slate-900 text-white">
@@ -106,7 +114,7 @@ const Portfolio: React.FC = () => {
           sticky top-0 z-50 border-b border-slate-700
           bg-slate-800
           overflow-hidden
-          transition-all duration-500
+          transition-all duration-300
           ${isHeader ? 'max-h-64 py-2 opacity-100' : 'max-h-0 py-0 opacity-0'}
         `}
       >
@@ -142,7 +150,8 @@ const Portfolio: React.FC = () => {
               {portfolio.blurb}
             </p>
 
-            <p ref={nameRef}></p>
+            {/* Sentinel Element */}
+            <div ref={nameRef} className="sentinel h-1"></div>
 
             <LinkButtons />
           </div>
@@ -159,7 +168,9 @@ const Portfolio: React.FC = () => {
               <h2 className="text-3xl font-bold">Experience</h2>
             </div>
             <div className="grid grid-cols-1 gap-4">
-              {portfolio.experience.map((experience, index) => <ExperienceCard experience={experience} key={`experience-${index}`}/>)}
+              {portfolio.experience.map((experience, index) => (
+                <ExperienceCard experience={experience} key={`experience-${index}`}/>
+              ))}
             </div>
           </section>
           <section className="mb-16">
@@ -168,7 +179,9 @@ const Portfolio: React.FC = () => {
               <h2 className="text-3xl font-bold">Education</h2>
             </div>
             <div className="space-y-4">
-              {portfolio.education.map((x, index) => <EducationCard education={x} key={`education-${index}`}/>)}
+              {portfolio.education.map((x, index) => (
+                <EducationCard education={x} key={`education-${index}`}/>
+              ))}
             </div>
           </section>
         </div>
