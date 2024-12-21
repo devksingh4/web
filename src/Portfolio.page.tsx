@@ -54,7 +54,7 @@ const Portfolio: React.FC = () => {
       });
     };
 
-    const observer = new IntersectionObserver(debounce(observerCallback, 2000, {leading: true}), observerOptions);
+    const observer = new IntersectionObserver(debounce(observerCallback, 300, {leading: true, trailing: true}), observerOptions);
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
@@ -108,7 +108,7 @@ const Portfolio: React.FC = () => {
           sticky top-0 z-50 border-b border-slate-700
           bg-slate-800
           overflow-hidden
-          transition-all duration-500
+          transition-all duration-300
           ${isHeader ? 'max-h-64 py-2 opacity-100' : 'max-h-0 py-0 opacity-0'}
         `}
       >
