@@ -57,7 +57,7 @@ const Portfolio: React.FC = () => {
       });
     };
 
-    const throttledObserverCallback = isTouchDevice.current ? throttle(observerCallback, 2000) : observerCallback;
+    const throttledObserverCallback = isTouchDevice.current ? throttle(observerCallback, 1000) : observerCallback;
 
     const observer = new IntersectionObserver(throttledObserverCallback, observerOptions);
 
