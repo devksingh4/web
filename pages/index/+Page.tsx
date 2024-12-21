@@ -135,25 +135,29 @@ const Portfolio: React.FC = () => {
       {/* Hero Section with Preview */}
       <section className="relative w-full min-h-screen flex flex-col items-center justify-between bg-slate-900">
         <div className="flex-grow flex flex-col items-center justify-center py-16">
-          <div className="container mx-auto px-4 flex flex-col items-center justify-center">
-            <img
-              src={portfolio.picture}
-              alt={`Picture of ${portfolio.name}`}
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400 mb-6"
-            />
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-8 max-w-4xl mx-auto">
+              <img
+                src={portfolio.picture}
+                alt={`Picture of ${portfolio.name}`}
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400 shrink-0"
+              />
+              
+              <div className="flex flex-col items-center md:items-start">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                  {portfolio.greeting}
+                </h1>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              {portfolio.greeting}
-            </h1>
+                <p className="text-gray-300 mb-6 text-justify text-lg">
+                  {portfolio.blurb}
+                </p>
 
-            <p className="text-gray-300 mb-6 text-justify max-w-2xl px-4 text-lg">
-              {portfolio.blurb}
-            </p>
+                {/* Sentinel Element */}
+                <div ref={nameRef} className="sentinel h-1"></div>
 
-            {/* Sentinel Element */}
-            <div ref={nameRef} className="sentinel h-1"></div>
-
-            <LinkButtons />
+                <LinkButtons />
+              </div>
+            </div>
           </div>
         </div>
         <ScrollHint visible={!isHeader}/>
@@ -190,4 +194,4 @@ const Portfolio: React.FC = () => {
   );
 };
 
-export default Portfolio;
+export default Portfolio; 
