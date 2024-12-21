@@ -45,7 +45,7 @@ const Portfolio: React.FC = () => {
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1 // Prevent glitchiness on mobile
+      threshold: 0.3 // Prevent glitchiness on mobile
     };
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -54,7 +54,7 @@ const Portfolio: React.FC = () => {
       });
     };
 
-    const observer = new IntersectionObserver(debounce(observerCallback, 200), observerOptions);
+    const observer = new IntersectionObserver(debounce(observerCallback, 2000, {leading: true}), observerOptions);
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
