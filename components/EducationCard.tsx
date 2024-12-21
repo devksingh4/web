@@ -2,11 +2,11 @@ import { EducationEntry } from "../types"
 
 interface EducationCardProps {
     education: EducationEntry
-    key: string
+    id: string
 }
-export const EducationCard: React.FC<EducationCardProps> = ({education, key}) => {
+export const EducationCard: React.FC<EducationCardProps> = ({education, id}) => {
     return (
-        <div key={key} className="border border-gray-700 p-6 hover:border-blue-400 transition-colors duration-300">
+        <div key={id} className="border border-gray-700 p-6 hover:border-blue-400 transition-colors duration-300">
             <a href={education.link} target="_blank" rel="noopener noreferrer">
             <div>
                 <h3 className="text-xl font-semibold text-blue-400 mb-4">{education.institution}</h3>

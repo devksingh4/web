@@ -7,12 +7,12 @@ import {
   FileText,
   GraduationCap
 } from 'lucide-react';
-import { portfolio } from './data';
-import { LinkButton } from './components/LinkButton';
-import { ExperienceCard } from './components/ExperienceCard';
-import { EducationCard } from './components/EducationCard';
-import { ScrollHint } from './components/ScrollHint';
-import { throttle } from 'lodash';
+import { portfolio } from '../../data';
+import { LinkButton } from '../../components/LinkButton';
+import { ExperienceCard } from '../../components/ExperienceCard';
+import { EducationCard } from '../../components/EducationCard';
+import { ScrollHint } from '../../components/ScrollHint';
+import { throttle } from 'lodash-es';
 
 // This modifies how fast you scroll past the hero (desktop only)
 const SCROLL_MULTIPLIER = 2.5;
@@ -169,7 +169,7 @@ const Portfolio: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 gap-4">
               {portfolio.experience.map((experience, index) => (
-                <ExperienceCard experience={experience} key={`experience-${index}`}/>
+                <ExperienceCard experience={experience} id={`experience-${index}`}/>
               ))}
             </div>
           </section>
@@ -180,7 +180,7 @@ const Portfolio: React.FC = () => {
             </div>
             <div className="space-y-4">
               {portfolio.education.map((x, index) => (
-                <EducationCard education={x} key={`education-${index}`}/>
+                <EducationCard education={x} id={`education-${index}`}/>
               ))}
             </div>
           </section>

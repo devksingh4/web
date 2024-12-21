@@ -1,7 +1,12 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { pages } from "vike-cloudflare";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+import vike from "vike/plugin";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  plugins: [vike({}), react({}), pages()],
+
+  build: {
+    target: "es2022",
+  },
+});

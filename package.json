@@ -1,37 +1,39 @@
 {
   "name": "web",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "run-s build preview:wrangler",
+    "preview:wrangler": "wrangler pages dev",
+    "deploy:wrangler": "wrangler pages deploy",
+    "deploy": "run-s build deploy:wrangler"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.20",
-    "lodash": "^4.17.21",
+    "@vitejs/plugin-react": "^4.3.4",
+    "lodash-es": "^4.17.21",
     "lucide-react": "^0.469.0",
-    "postcss": "^8.4.49",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwindcss": "^3.4.17"
+    "vike-cloudflare": "^0.1.6",
+    "vike-react": "^0.5.10"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
+    "@cloudflare/workers-types": "^4.20241205.0",
     "@types/lodash": "^4.17.13",
-    "@types/react": "^19.0.2",
+    "@types/lodash-es": "^4.17.12",
+    "@types/react": "^18.3.16",
     "@types/react-dom": "^18.3.5",
-    "@types/react-helmet": "^6.1.11",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^9.17.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
-    "eslint-plugin-react-refresh": "^0.4.16",
-    "globals": "^15.13.0",
-    "typescript": "~5.6.2",
-    "typescript-eslint": "^8.18.1",
-    "vite": "^6.0.3"
+    "autoprefixer": "^10.4.20",
+    "npm-run-all2": "^7.0.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2",
+    "vike": "^0.4.209",
+    "vite": "^6.0.3",
+    "wrangler": "^3.95.0"
   },
+  "type": "module",
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
