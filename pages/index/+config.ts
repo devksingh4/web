@@ -15,4 +15,5 @@ export default {
   description: portfolio.blurb,
   image: portfolio.picture,
   extends: vikeReact,
+  prerender: true,
 } satisfies Config;
