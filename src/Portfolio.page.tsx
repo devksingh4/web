@@ -12,7 +12,7 @@ import { LinkButton } from './components/LinkButton';
 import { ExperienceCard } from './components/ExperienceCard';
 import { EducationCard } from './components/EducationCard';
 import { ScrollHint } from './components/ScrollHint';
-import { debounce } from 'lodash';
+import { throttle } from 'lodash';
 
 
 // This modifies how fast you scroll past the hero (desktop only)
@@ -54,7 +54,7 @@ const Portfolio: React.FC = () => {
       });
     };
 
-    const observer = new IntersectionObserver(debounce(observerCallback, 300, {leading: true, trailing: true}), observerOptions);
+    const observer = new IntersectionObserver(isTouchDevice ? throttle(observerCallback, 2000) : observerCallback, observerOptions);
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
