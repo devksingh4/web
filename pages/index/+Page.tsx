@@ -8,7 +8,7 @@ import {
   GraduationCap
 } from 'lucide-react';
 import { portfolio } from '../../data';
-import { LinkButton } from '../../components/LinkButton';
+import { IconLinkButton, LinkButton } from '../../components/LinkButton';
 import { ExperienceCard } from '../../components/ExperienceCard';
 import { EducationCard } from '../../components/EducationCard';
 import { ScrollHint } from '../../components/ScrollHint';
@@ -24,6 +24,17 @@ const LinkButtons: React.FC = () => {
       <LinkButton href={`https://linkedin.com/in/${portfolio.links.linkedin}`} icon={Linkedin} text="LinkedIn" />
       <LinkButton href={`mailto:${portfolio.links.email}`} icon={Mail} text="Email" />
       <LinkButton href={portfolio.links.resume} icon={FileText} text="Resume" />
+    </div>
+  )
+}
+
+const IconOnlyLinkButtons: React.FC = () => {
+  return (
+    <div className="flex gap-2 mt-1 flex-wrap place-content-center">
+      <IconLinkButton href={`https://github.com/${portfolio.links.github}`} icon={Github} text="GitHub" />
+      <IconLinkButton href={`https://linkedin.com/in/${portfolio.links.linkedin}`} icon={Linkedin} text="LinkedIn" />
+      <IconLinkButton href={`mailto:${portfolio.links.email}`} icon={Mail} text="Email" />
+      <IconLinkButton href={portfolio.links.resume} icon={FileText} text="Resume" />
     </div>
   )
 }
@@ -119,29 +130,27 @@ const Portfolio: React.FC = () => {
         `}
       >
         <div className="flex items-center justify-center">
-          <img
-            src={portfolio.picture}
-            alt={`Picture of ${portfolio.name}`}
-            className="rounded-full border-2 border-blue-400"
-            style={{ width: '40px', height: '40px' }}
-          />
-          <h2 className="text-2xl font-bold ml-2">
+          <h2 className="text-4xl font-bold text-center">
             {portfolio.name}
           </h2>
         </div>
-        <LinkButtons />
+        <IconOnlyLinkButtons />
       </header>
-
-      {/* Hero Section with Preview */}
       <section className="relative w-full min-h-screen flex flex-col items-center justify-between bg-slate-900">
         <div className="flex-grow flex flex-col items-center justify-center py-16">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 max-w-4xl mx-auto">
-              <img
-                src={portfolio.picture}
-                alt={`Picture of ${portfolio.name}`}
-                className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400 shrink-0"
-              />
+              <div className="flex flex-col items-center shrink-0">
+                <img
+                  src={portfolio.picture}
+                  alt={`Picture of ${portfolio.name}`}
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400"
+                />
+                <h3 className="mt-4 font-semibold text-xl">{portfolio.name}</h3>
+                <a href={`mailto:${portfolio.links.email}`} className="text-blue-400 hover:text-blue-300 transition-colors">
+                  {portfolio.links.email}
+                </a>
+              </div>
               
               <div className="flex flex-col items-center md:items-start">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
@@ -168,7 +177,7 @@ const Portfolio: React.FC = () => {
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4 mt-auto">
           <section className="mb-8">
             <div className="flex items-center gap-3 mb-8">
-              <Building2 className="w-8 h-8 text-blue-400" />
+              <Building2 className="w-8 h-8 text-blue-500" />
               <h2 className="text-3xl font-bold">Experience</h2>
             </div>
             <div className="grid grid-cols-1 gap-4">
@@ -179,7 +188,7 @@ const Portfolio: React.FC = () => {
           </section>
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-8">
-              <GraduationCap className="w-8 h-8 text-blue-400" />
+              <GraduationCap className="w-8 h-8 text-blue-500" />
               <h2 className="text-3xl font-bold">Education</h2>
             </div>
             <div className="space-y-4">

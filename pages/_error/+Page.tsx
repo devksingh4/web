@@ -14,7 +14,7 @@ export default function Page() {
             </h1>
 
             <p className="text-gray-300 mb-6 text-justify max-w-2xl px-4 text-lg">
-              Perhaps you would like to <a href='/' className="text-blue-600 hover:text-blue-800">go home</a>?
+              Perhaps you would like to <a href='/' className="text-blue-500 hover:text-blue-800">go home</a>?
             </p>
 
           </div>
