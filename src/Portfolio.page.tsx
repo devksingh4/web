@@ -14,7 +14,6 @@ import { EducationCard } from './components/EducationCard';
 import { ScrollHint } from './components/ScrollHint';
 
 // This modifies how fast you scroll past the hero (desktop only)
-
 const SCROLL_MULTIPLIER = 2.5;
 
 const LinkButtons: React.FC = () => {
@@ -29,7 +28,7 @@ const LinkButtons: React.FC = () => {
 }
 
 const Portfolio: React.FC = () => {
-  const nameRef = useRef<HTMLHeadingElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null); // Changed to HTMLDivElement
   const [isHeader, setIsHeader] = useState(false);
   const rafRef = useRef<number | null>(null);
   const wheelDeltaRef = useRef<number>(0);
@@ -43,7 +42,7 @@ const Portfolio: React.FC = () => {
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0
+      threshold: 0.1 // Prevent glitchiness on mobile
     };
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -95,7 +94,7 @@ const Portfolio: React.FC = () => {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [isHeader, SCROLL_MULTIPLIER]);
+  }, [isHeader]);
 
   return (
     <div className="bg-slate-900 text-white">
@@ -142,7 +141,8 @@ const Portfolio: React.FC = () => {
               {portfolio.blurb}
             </p>
 
-            <p ref={nameRef}></p>
+            {/* Sentinel Element */}
+            <div ref={nameRef} className="sentinel h-1"></div>
 
             <LinkButtons />
           </div>
@@ -159,7 +159,9 @@ const Portfolio: React.FC = () => {
               <h2 className="text-3xl font-bold">Experience</h2>
             </div>
             <div className="grid grid-cols-1 gap-4">
-              {portfolio.experience.map((experience, index) => <ExperienceCard experience={experience} key={`experience-${index}`}/>)}
+              {portfolio.experience.map((experience, index) => (
+                <ExperienceCard experience={experience} key={`experience-${index}`}/>
+              ))}
             </div>
           </section>
           <section className="mb-16">
@@ -168,7 +170,9 @@ const Portfolio: React.FC = () => {
               <h2 className="text-3xl font-bold">Education</h2>
             </div>
             <div className="space-y-4">
-              {portfolio.education.map((x, index) => <EducationCard education={x} key={`education-${index}`}/>)}
+              {portfolio.education.map((x, index) => (
+                <EducationCard education={x} key={`education-${index}`}/>
+              ))}
             </div>
           </section>
         </div>
