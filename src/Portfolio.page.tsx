@@ -14,7 +14,6 @@ import { EducationCard } from './components/EducationCard';
 import { ScrollHint } from './components/ScrollHint';
 import { throttle } from 'lodash';
 
-
 // This modifies how fast you scroll past the hero (desktop only)
 const SCROLL_MULTIPLIER = 2.5;
 
@@ -32,10 +31,10 @@ const LinkButtons: React.FC = () => {
 const Portfolio: React.FC = () => {
   const nameRef = useRef<HTMLDivElement>(null);
   const [isHeader, setIsHeader] = useState(false);
+  const isHeaderRef = useRef<boolean>(isHeader);
   const rafRef = useRef<number | null>(null);
   const wheelDeltaRef = useRef<number>(0);
   const isTouchDevice = useRef<boolean>(false);
-
 
   useEffect(() => {
     isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -50,11 +49,17 @@ const Portfolio: React.FC = () => {
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
       entries.forEach(entry => {
-        setIsHeader(!entry.isIntersecting);
+        const newIsHeader = !entry.isIntersecting;
+        if (isHeaderRef.current !== newIsHeader) {
+          setIsHeader(newIsHeader);
+          isHeaderRef.current = newIsHeader;
+        }
       });
     };
 
-    const observer = new IntersectionObserver(isTouchDevice ? throttle(observerCallback, 2000) : observerCallback, observerOptions);
+    const throttledObserverCallback = isTouchDevice.current ? throttle(observerCallback, 2000) : observerCallback;
+
+    const observer = new IntersectionObserver(throttledObserverCallback, observerOptions);
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
@@ -74,7 +79,7 @@ const Portfolio: React.FC = () => {
     }
 
     const handleWheel = (event: WheelEvent) => {
-      if (isHeader) return;
+      if (isHeaderRef.current) return;
       event.preventDefault();
       wheelDeltaRef.current += event.deltaY;
       if (!rafRef.current) {
@@ -98,7 +103,7 @@ const Portfolio: React.FC = () => {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [isHeader]);
+  }, []);
 
   return (
     <div className="bg-slate-900 text-white">
