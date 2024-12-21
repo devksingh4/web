@@ -107,7 +107,7 @@ const Portfolio: React.FC = () => {
 
   return (
     <div className="bg-slate-900 text-white">
-      <div className="fixed inset-0 bg-slate-900 -z-10"></div>      
+      <div className="fixed inset-0 bg-slate-900 -z-10"></div>
       {/* Sticky Header */}
       <header
         className={`
