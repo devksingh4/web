@@ -12,6 +12,8 @@ import { LinkButton } from './components/LinkButton';
 import { ExperienceCard } from './components/ExperienceCard';
 import { EducationCard } from './components/EducationCard';
 import { ScrollHint } from './components/ScrollHint';
+import { debounce } from 'lodash';
+
 
 // This modifies how fast you scroll past the hero (desktop only)
 const SCROLL_MULTIPLIER = 2.5;
@@ -28,11 +30,12 @@ const LinkButtons: React.FC = () => {
 }
 
 const Portfolio: React.FC = () => {
-  const nameRef = useRef<HTMLDivElement>(null); // Changed to HTMLDivElement
+  const nameRef = useRef<HTMLDivElement>(null);
   const [isHeader, setIsHeader] = useState(false);
   const rafRef = useRef<number | null>(null);
   const wheelDeltaRef = useRef<number>(0);
   const isTouchDevice = useRef<boolean>(false);
+
 
   useEffect(() => {
     isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -51,7 +54,7 @@ const Portfolio: React.FC = () => {
       });
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    const observer = new IntersectionObserver(debounce(observerCallback, 200), observerOptions);
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
