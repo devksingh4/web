@@ -13,7 +13,6 @@ export default {
   // https://vike.dev/head-tags
   title: portfolio.name,
   description: portfolio.blurb,
-  image: portfolio.picture,
   extends: vikeReact,
   prerender: true,
 } satisfies Config;
