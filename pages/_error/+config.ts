@@ -1,5 +1,5 @@
-import { portfolio } from '../../data'
- 
+import { portfolio } from "../../data";
+
 export default {
-    title: `Page Not Found | ${portfolio.name}`
-}
+  title: `Page Not Found | ${portfolio.name}`,
+};

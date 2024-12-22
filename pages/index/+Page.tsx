@@ -1,19 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import {
   Mail,
   Github,
   Linkedin,
   Building2,
   FileText,
-  GraduationCap
-} from 'lucide-react';
-import { portfolio } from '../../data';
-import { IconLinkButton, LinkButton } from '../../components/LinkButton';
-import { ExperienceCard } from '../../components/ExperienceCard';
-import { EducationCard } from '../../components/EducationCard';
-import { ScrollHint } from '../../components/ScrollHint';
-import { throttle } from 'lodash-es';
-import NiceLink from '../../components/NiceLink';
+  GraduationCap,
+} from "lucide-react";
+import { portfolio } from "../../data";
+import { IconLinkButton, LinkButton } from "../../components/LinkButton";
+import { ExperienceCard } from "../../components/ExperienceCard";
+import { EducationCard } from "../../components/EducationCard";
+import { ScrollHint } from "../../components/ScrollHint";
+import { throttle } from "lodash-es";
+import NiceLink from "../../components/NiceLink";
 
 // This modifies how fast you scroll past the hero (desktop only)
 const SCROLL_MULTIPLIER = 2.5;
@@ -21,24 +21,52 @@ const SCROLL_MULTIPLIER = 2.5;
 const LinkButtons: React.FC = () => {
   return (
     <div className="flex gap-2 mt-1 flex-wrap place-content-center">
-      <LinkButton href={`https://github.com/${portfolio.links.github}`} icon={Github} text="GitHub" />
-      <LinkButton href={`https://linkedin.com/in/${portfolio.links.linkedin}`} icon={Linkedin} text="LinkedIn" />
-      <LinkButton href={`mailto:${portfolio.links.email}`} icon={Mail} text="Email" />
+      <LinkButton
+        href={`https://github.com/${portfolio.links.github}`}
+        icon={Github}
+        text="GitHub"
+      />
+      <LinkButton
+        href={`https://linkedin.com/in/${portfolio.links.linkedin}`}
+        icon={Linkedin}
+        text="LinkedIn"
+      />
+      <LinkButton
+        href={`mailto:${portfolio.links.email}`}
+        icon={Mail}
+        text="Email"
+      />
       <LinkButton href={portfolio.links.resume} icon={FileText} text="Resume" />
     </div>
-  )
-}
+  );
+};
 
 const IconOnlyLinkButtons: React.FC = () => {
   return (
     <div className="flex gap-2 mt-1 flex-wrap place-content-center">
-      <IconLinkButton href={`https://github.com/${portfolio.links.github}`} icon={<Github size={24}/>} text="GitHub" />
-      <IconLinkButton href={`https://linkedin.com/in/${portfolio.links.linkedin}`} icon={<Linkedin size={24}/>} text="LinkedIn" />
-      <IconLinkButton href={`mailto:${portfolio.links.email}`} icon={<Mail size={24}/>} text="Email" />
-      <IconLinkButton href={portfolio.links.resume} icon={<FileText size={24}/>} text="Resume" />
+      <IconLinkButton
+        href={`https://github.com/${portfolio.links.github}`}
+        icon={<Github size={24} />}
+        text="GitHub"
+      />
+      <IconLinkButton
+        href={`https://linkedin.com/in/${portfolio.links.linkedin}`}
+        icon={<Linkedin size={24} />}
+        text="LinkedIn"
+      />
+      <IconLinkButton
+        href={`mailto:${portfolio.links.email}`}
+        icon={<Mail size={24} />}
+        text="Email"
+      />
+      <IconLinkButton
+        href={portfolio.links.resume}
+        icon={<FileText size={24} />}
+        text="Resume"
+      />
     </div>
-  )
-}
+  );
+};
 
 const Portfolio: React.FC = () => {
   const nameRef = useRef<HTMLDivElement>(null);
@@ -49,18 +77,19 @@ const Portfolio: React.FC = () => {
   const isTouchDevice = useRef<boolean>(false);
 
   useEffect(() => {
-    isTouchDevice.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    isTouchDevice.current =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
   }, []);
 
   useEffect(() => {
     const observerOptions = {
       root: null,
-      rootMargin: '0px',
-      threshold: 0.3 // Prevent glitchiness on mobile
+      rootMargin: "0px",
+      threshold: 0.3, // Prevent glitchiness on mobile
     };
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         const newIsHeader = !entry.isIntersecting;
         if (isHeaderRef.current !== newIsHeader) {
           setIsHeader(newIsHeader);
@@ -69,9 +98,14 @@ const Portfolio: React.FC = () => {
       });
     };
 
-    const throttledObserverCallback = isTouchDevice.current ? throttle(observerCallback, 1000) : observerCallback;
+    const throttledObserverCallback = isTouchDevice.current
+      ? throttle(observerCallback, 1000)
+      : observerCallback;
 
-    const observer = new IntersectionObserver(throttledObserverCallback, observerOptions);
+    const observer = new IntersectionObserver(
+      throttledObserverCallback,
+      observerOptions,
+    );
 
     if (nameRef.current) {
       observer.observe(nameRef.current);
@@ -99,7 +133,7 @@ const Portfolio: React.FC = () => {
           window.scrollBy({
             top: wheelDeltaRef.current * SCROLL_MULTIPLIER,
             left: 0,
-            behavior: 'auto'
+            behavior: "auto",
           });
           wheelDeltaRef.current = 0;
           rafRef.current = null;
@@ -107,10 +141,10 @@ const Portfolio: React.FC = () => {
       }
     };
 
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener("wheel", handleWheel, { passive: false });
 
     return () => {
-      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener("wheel", handleWheel);
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
       }
@@ -127,13 +161,11 @@ const Portfolio: React.FC = () => {
           bg-slate-800
           overflow-hidden
           transition-all duration-300
-          ${isHeader ? 'max-h-64 py-2 opacity-100' : 'max-h-0 py-0 opacity-0'}
+          ${isHeader ? "max-h-64 py-2 opacity-100" : "max-h-0 py-0 opacity-0"}
         `}
       >
         <div className="flex items-center justify-center">
-          <h2 className="text-4xl font-bold text-center">
-            {portfolio.name}
-          </h2>
+          <h2 className="text-4xl font-bold text-center">{portfolio.name}</h2>
         </div>
         <IconOnlyLinkButtons />
       </header>
@@ -146,29 +178,27 @@ const Portfolio: React.FC = () => {
                   src={portfolio.picture}
                   alt={`Picture of ${portfolio.name}`}
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400"
-                /> 
+                />
                 <h3 className="mt-4 font-semibold text-xl">{portfolio.name}</h3>
-                <NiceLink href={`mailto:${portfolio.links.email}`}>{portfolio.links.email}</NiceLink>
+                <NiceLink href={`mailto:${portfolio.links.email}`}>
+                  {portfolio.links.email}
+                </NiceLink>
               </div>
-              
+
               <div className="flex flex-col items-center md:items-start">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
                   {portfolio.greeting}
                 </h1>
 
-                <p className="text-gray-300 mb-6 text-justify text-lg">
-                  {portfolio.blurb}
-                </p>
-
                 {/* Sentinel Element */}
                 <div ref={nameRef} className="sentinel h-1"></div>
-
+                {portfolio.additionalInfo}
                 <LinkButtons />
               </div>
             </div>
           </div>
         </div>
-        <ScrollHint visible={!isHeader}/>
+        <ScrollHint visible={!isHeader} />
       </section>
 
       {/* Content Section */}
@@ -181,7 +211,11 @@ const Portfolio: React.FC = () => {
             </div>
             <div className="grid grid-cols-1 gap-4">
               {portfolio.experience.map((experience, index) => (
-                <ExperienceCard experience={experience} id={`experience-${index}`}/>
+                <ExperienceCard
+                  experience={experience}
+                  id={`experience-${index}`}
+                  key={`experience-${index}-p`}
+                />
               ))}
             </div>
           </section>
@@ -192,7 +226,11 @@ const Portfolio: React.FC = () => {
             </div>
             <div className="space-y-4">
               {portfolio.education.map((x, index) => (
-                <EducationCard education={x} id={`education-${index}`}/>
+                <EducationCard
+                  education={x}
+                  id={`education-${index}`}
+                  key={`education-${index}-p`}
+                />
               ))}
             </div>
           </section>
@@ -202,4 +240,4 @@ const Portfolio: React.FC = () => {
   );
 };
 
-export default Portfolio; 
+export default Portfolio;
