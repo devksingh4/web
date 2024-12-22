@@ -1,5 +1,3 @@
-import { ReactElement } from "react";
-
 export interface EducationEntry {
   institution: string;
   link: string;
@@ -33,7 +31,6 @@ export interface Portfolio {
   picture: string;
   greeting: string;
   blurb: string;
-  additionalInfo: string | ReactElement;
   links: PortfolioIds;
   experience: ExperienceEntry[];
   education: EducationEntry[];

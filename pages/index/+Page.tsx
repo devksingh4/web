@@ -7,12 +7,13 @@ import {
   FileText,
   GraduationCap,
 } from "lucide-react";
-import { portfolio } from "../../data";
+import { portfolio } from "../../data.js";
 import { IconLinkButton, LinkButton } from "../../components/LinkButton";
 import { ExperienceCard } from "../../components/ExperienceCard";
 import { EducationCard } from "../../components/EducationCard";
 import { ScrollHint } from "../../components/ScrollHint";
 import { throttle } from "lodash-es";
+import { IntroComponent } from "./Intro";
 import NiceLink from "../../components/NiceLink";
 
 // This modifies how fast you scroll past the hero (desktop only)
@@ -173,12 +174,20 @@ const Portfolio: React.FC = () => {
         <div className="flex-grow flex flex-col items-center justify-center py-16">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 max-w-4xl mx-auto">
-              <div className="flex flex-col items-center shrink-0">
-                <img
-                  src={portfolio.picture}
-                  alt={`Picture of ${portfolio.name}`}
-                  className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-blue-400"
-                />
+              <div className="flex flex-col items-center shrink-0 pt-2">
+                <picture>
+                <source
+                    type="image/webp"
+                    srcSet={portfolio.picture.replace(".jpg", ".webp")}
+                    className="w-32 h-32 md:w-48 md:h-48 rounded-full"
+                  />
+                  <img
+                    src={portfolio.picture}
+                    alt={`Picture of ${portfolio.name}`}
+                    className="w-32 h-32 md:w-48 md:h-48 rounded-full"
+                  />
+                </picture>
+
                 <h3 className="mt-4 font-semibold text-xl">{portfolio.name}</h3>
                 <NiceLink href={`mailto:${portfolio.links.email}`}>
                   {portfolio.links.email}
@@ -192,13 +201,7 @@ const Portfolio: React.FC = () => {
 
                 {/* Sentinel Element */}
                 <div ref={nameRef} className="sentinel h-1"></div>
-                {typeof portfolio.additionalInfo === "string" ? (
-                  <p className="text-gray-300 mb-6 text-left text-lg">
-                    {portfolio.additionalInfo}
-                  </p>
-                ) : (
-                  portfolio.additionalInfo
-                )}
+                <IntroComponent />
                 <LinkButtons />
               </div>
             </div>

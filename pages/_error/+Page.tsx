@@ -9,7 +9,7 @@ export default function Page() {
         <div className="flex-grow flex flex-col items-center justify-center py-16">
           <div className="container mx-auto px-4 flex flex-col items-center justify-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              {is404 ? "Page Not Found" : "An Error OPccurred"}
+              {is404 ? "Page Not Found" : "An Error Occurred"}
             </h1>
 
             <p className="text-gray-300 mb-6 text-justify max-w-2xl px-4 text-lg">
