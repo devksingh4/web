@@ -18,8 +18,8 @@ const IntroComponent = () => {
       <p className="text-gray-300 mb-6 text-left text-lg">
         Last summer, I worked at{" "}
         <NiceLink href="https://capitalone.com">Capital One</NiceLink> on the
-        Card Tech team, where I helped develop tools to reduce fraud losses and
-        streamline fraud detection. Before that, I&apos;ve also worked at{" "}
+        Card Tech team, where I helped develop tools to streamline fraud
+        detection and reduce fraud losses. Before that, I&apos;ve also worked at{" "}
         <NiceLink href="https://cat.com/en_US.html">Caterpillar</NiceLink> on
         the Analytics Execution team, and at{" "}
         <NiceLink href="https://zaktilabs.com">Zakti Security Labs</NiceLink>{" "}

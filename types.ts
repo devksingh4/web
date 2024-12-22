@@ -33,7 +33,7 @@ export interface Portfolio {
   picture: string;
   greeting: string;
   blurb: string;
-  additionalInfo: ReactElement;
+  additionalInfo: string | ReactElement;
   links: PortfolioIds;
   experience: ExperienceEntry[];
   education: EducationEntry[];

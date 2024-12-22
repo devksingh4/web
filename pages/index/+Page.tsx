@@ -192,7 +192,13 @@ const Portfolio: React.FC = () => {
 
                 {/* Sentinel Element */}
                 <div ref={nameRef} className="sentinel h-1"></div>
-                {portfolio.additionalInfo}
+                {typeof portfolio.additionalInfo === "string" ? (
+                  <p className="text-gray-300 mb-6 text-left text-lg">
+                    {portfolio.additionalInfo}
+                  </p>
+                ) : (
+                  portfolio.additionalInfo
+                )}
                 <LinkButtons />
               </div>
             </div>
