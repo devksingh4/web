@@ -175,19 +175,11 @@ const Portfolio: React.FC = () => {
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 max-w-4xl mx-auto">
               <div className="flex flex-col items-center shrink-0 pt-2">
-                <picture>
-                <source
-                    type="image/webp"
-                    srcSet={portfolio.picture.replace(".jpg", ".webp")}
-                    className="w-32 h-32 md:w-48 md:h-48 rounded-full"
-                  />
-                  <img
-                    src={portfolio.picture}
-                    alt={`Picture of ${portfolio.name}`}
-                    className="w-32 h-32 md:w-48 md:h-48 rounded-full"
-                  />
-                </picture>
-
+                <img
+                  src={portfolio.picture}
+                  alt={`Picture of ${portfolio.name}`}
+                  className="w-32 h-32 md:w-48 md:h-48 rounded-full"
+                />
                 <h3 className="mt-4 font-semibold text-xl">{portfolio.name}</h3>
                 <NiceLink href={`mailto:${portfolio.links.email}`}>
                   {portfolio.links.email}
