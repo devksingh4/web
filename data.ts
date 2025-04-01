@@ -64,7 +64,7 @@ export const portfolio: Portfolio = {
   education: [
     {
       institution: "University of Illinois Urbana-Champaign",
-      link: "https://cs.illinois.edu",
+      link: "https://siebelschool.illinois.edu",
       degrees: [
         {
           dates: "Aug 2025 to May 2026",
@@ -77,8 +77,8 @@ export const portfolio: Portfolio = {
       ],
       bullets: [
         "Minor in Business.",
-        "Leading the ACM @ UIUC Infrastructure Committee, where we develop solutions to manage club operations and technology infrastructure.",
-        "Served as the Treasurer from 2023-2024.",
+        "Chair of the ACM @ UIUC Infrastructure Committee, where we develop solutions to manage club operations and technology infrastructure.",
+        "Served as the Treasurer of ACM @ UIUC from 2023-2024.",
       ],
     },
     {
