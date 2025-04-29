@@ -12,7 +12,7 @@ export const portfolio: Portfolio = {
     resume: "/Dev_Singh_resume.pdf",
   },
   blurb:
-    "I'm a senior at the University of Illinois pursuing a combined Bachelor's and Master's degree in Computer Science. My interests lie in building large-scale distributed systems, and I love solving complex engineering challenges.",
+    "I'm a graduate student at the University of Illinois pursuing a combined Bachelor's and Master's of Computer Science degree. My interests lie in building large-scale distributed systems, and I love solving complex engineering challenges.",
   experience: [
     {
       company: "CS 341 @ UIUC",
