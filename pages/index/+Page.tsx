@@ -170,7 +170,7 @@ const Portfolio: React.FC = () => {
         <IconOnlyLinkButtons />
       </header>
       <section className="relative w-full min-h-screen flex flex-col items-center justify-between bg-slate-900">
-        <div className="flex-grow flex flex-col items-center justify-center py-16">
+        <div className="flex-grow flex flex-col items-center justify-center py-16 print:py-0">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 max-w-4xl mx-auto">
               <div className="flex flex-col items-center shrink-0 pt-2">
@@ -179,14 +179,14 @@ const Portfolio: React.FC = () => {
                   alt={`Picture of ${portfolio.name}`}
                   className="w-32 h-32 md:w-48 md:h-48 rounded-full"
                 />
-                <h3 className="mt-4 font-semibold text-xl">{portfolio.name}</h3>
+                <h3 className="mt-4 font-semibold text-xl print:text-black">{portfolio.name}</h3>
                 <NiceLink href={`mailto:${portfolio.links.email}`}>
                   {portfolio.links.email}
                 </NiceLink>
               </div>
 
               <div className="flex flex-col items-center md:items-start">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 print:text-black">
                   {portfolio.greeting}
                 </h1>
 
@@ -207,7 +207,7 @@ const Portfolio: React.FC = () => {
           <section className="mb-8">
             <div className="flex items-center gap-3 mb-8">
               <Building2 className="w-8 h-8 text-blue-500" />
-              <h2 className="text-3xl font-bold">Experience</h2>
+              <h2 className="text-3xl font-bold print:text-black">Experience</h2>
             </div>
             <div className="grid grid-cols-1 gap-4">
               {portfolio.experience.map((experience, index) => (
@@ -222,7 +222,7 @@ const Portfolio: React.FC = () => {
           <section className="mb-16">
             <div className="flex items-center gap-3 mb-8">
               <GraduationCap className="w-8 h-8 text-blue-500" />
-              <h2 className="text-3xl font-bold">Education</h2>
+              <h2 className="text-3xl font-bold print:text-black">Education</h2>
             </div>
             <div className="space-y-4">
               {portfolio.education.map((x, index) => (

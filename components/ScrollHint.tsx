@@ -5,7 +5,7 @@ interface ScrollHintProps {
 export const ScrollHint: React.FC<ScrollHintProps> = ({ visible }) => {
   return (
     <div
-      className={`w-full pb-8 bg-gradient-to-b transition-all duration-300 to-slate-900 ${!visible ? "opacity-0" : "opacity-100"}`}
+      className={`w-full pb-8 bg-gradient-to-b transition-all duration-300 to-slate-900 ${!visible ? "opacity-0" : "opacity-100"} print:hidden`}
     >
       <p className="flex justify-center mt-4 text-gray-300">Scroll for more</p>
       <div className="animate-bounce flex justify-center mt-4">

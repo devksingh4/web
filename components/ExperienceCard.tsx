@@ -12,6 +12,7 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({
   return (
     <div
       key={id}
+      style={{ pageBreakInside: 'avoid' }}
       className="rounded border border-gray-700 p-6 hover:border-blue-500 transition-colors duration-300"
     >
       <a target="_blank" rel="noopener noreferrer">
@@ -23,12 +24,12 @@ export const ExperienceCard: React.FC<ExperienceCardProps> = ({
         {experience.positions.map((x, idx) => (
           <React.Fragment key={`${id}-position-${idx}`}>
             <div className="mb-1">
-              <h4 className="text-gray-200 font-semibold text-lg">{x.title}</h4>
-              <p className="text-gray-400 text-sm">
+              <h4 className="text-gray-200 font-semibold text-lg print:text-black">{x.title}</h4>
+              <p className="text-gray-400 print:text-grey text-sm">
                 {x.location ? `${x.location} |` : null} {x.dates}
               </p>
             </div>
-            <ul className="text-gray-200">
+            <ul className="text-gray-200 print:text-black">
               {x.bullets.map((bullet, index) => (
                 <li
                   key={`${id}-bullet-${index}`}

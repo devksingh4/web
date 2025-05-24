@@ -19,7 +19,7 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
 }) => (
   <a
     href={href}
-    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-500 transition-colors duration-300"
+    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-700 text-white rounded hover:bg-blue-500 transition-colors duration-300 print:text-black"
     target="_blank"
     rel="noopener noreferrer"
   >
