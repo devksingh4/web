@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "prettier": "prettier --write *",
     "preview": "run-s build preview:wrangler",
     "preview:wrangler": "wrangler pages dev",
     "deploy:wrangler": "wrangler pages deploy",

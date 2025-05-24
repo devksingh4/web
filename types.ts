@@ -1,21 +1,13 @@
-export interface EducationEntry {
-  institution: string;
-  link: string;
-  degrees: EducationDegreeEntry[];
-  bullets?: string[];
-}
-
-export interface EducationDegreeEntry {
-  degree: string;
+export interface ExperienceEntryPosition {
+  title: string;
+  location?: string;
   dates: string;
+  bullets: string[];
 }
 
 export interface ExperienceEntry {
   company: string;
-  position: string;
-  location: string;
-  dates: string;
-  bullets: string[];
+  positions: ExperienceEntryPosition[];
   link?: string;
 }
 
@@ -33,5 +25,5 @@ export interface Portfolio {
   blurb: string;
   links: PortfolioIds;
   experience: ExperienceEntry[];
-  education: EducationEntry[];
+  education: ExperienceEntry[];
 }

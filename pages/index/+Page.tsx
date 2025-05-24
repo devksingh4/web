@@ -10,7 +10,6 @@ import {
 import { portfolio } from "../../data.js";
 import { IconLinkButton, LinkButton } from "../../components/LinkButton";
 import { ExperienceCard } from "../../components/ExperienceCard";
-import { EducationCard } from "../../components/EducationCard";
 import { ScrollHint } from "../../components/ScrollHint";
 import { throttle } from "lodash-es";
 import { IntroComponent } from "./Intro";
@@ -86,7 +85,7 @@ const Portfolio: React.FC = () => {
     const observerOptions = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.3, // Prevent glitchiness on mobile
+      threshold: 0.3,
     };
 
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -227,8 +226,8 @@ const Portfolio: React.FC = () => {
             </div>
             <div className="space-y-4">
               {portfolio.education.map((x, index) => (
-                <EducationCard
-                  education={x}
+                <ExperienceCard
+                  experience={x}
                   id={`education-${index}`}
                   key={`education-${index}-p`}
                 />
