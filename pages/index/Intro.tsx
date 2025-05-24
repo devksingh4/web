@@ -4,7 +4,9 @@ import { portfolio } from "../../data.js";
 export const IntroComponent = () => {
   return (
     <>
-      <p className="text-slate-200 mb-6 text-left text-lg print:text-black">{portfolio.blurb}</p>
+      <p className="text-slate-200 mb-6 text-left text-lg print:text-black">
+        {portfolio.blurb}
+      </p>
 
       <p className="text-slate-100 mb-6 text-left text-lg print:text-black">
         I&apos;m currently the infrastructure lead for{" "}
@@ -16,8 +18,8 @@ export const IntroComponent = () => {
       </p>
       <p className="text-gray-100 mb-6 text-left text-lg print:text-black">
         This summer, I'll be working at{" "}
-        <NiceLink href="https://capitalone.com">Capital One</NiceLink>{" "}
-        on the Premium Products and Experiences team.
+        <NiceLink href="https://capitalone.com">Capital One</NiceLink> on the
+        Premium Products and Experiences team.
       </p>
       <p className="text-gray-100 mb-6 text-left text-lg print:text-black">
         I previously worked on the Card Tech team at Capital One, where I helped

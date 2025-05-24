@@ -21,9 +21,7 @@ export const portfolio: Portfolio = {
           title: "Software Engineer Intern",
           location: "New York, NY",
           dates: "June 2025 - August 2025",
-          bullets: [
-            "Working on the Premium Products and Experiences team.",
-          ],
+          bullets: ["Working on the Premium Products and Experiences team."],
         },
         {
           title: "Software Engineer Intern",
@@ -93,7 +91,7 @@ export const portfolio: Portfolio = {
         {
           dates: "August 2025 - May 2026",
           title: "Master's in Computer Science",
-          bullets: []
+          bullets: [],
         },
         {
           dates: "August 2022 - May 2025",
