@@ -28,8 +28,8 @@ export const portfolio: Portfolio = {
           location: "McLean, VA",
           dates: "June 2024 - August 2024",
           bullets: [
-            "Built full-stack fraud detection solutions using TypeScript, AWS Fargate, and Kafka that reduced fraud investigation time, fraud losses, and operational costs.",
-            "Reduced fraud investigation time and operational costs while enhancing financial integrity.",
+            "Built full-stack fraud detection solutions using TypeScript, AWS Fargate, and Kafka that reduced fraud investigation time and fraud losses.",
+            "Directly engaged with user groups to reduce manual intervention and generate recurring cost savings.",
           ],
         },
       ],
