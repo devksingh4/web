@@ -1,0 +1,31 @@
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Deploy to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.DEPLOY_PAT }}
+      - name: Generate PDF document
+        uses: hspaans/latexmk-action@v2.1.0
+        with:
+          format: pdf
+          filename: resume/main.tex
+          options: -pdf -jobname=public/Dev_Singh_resume.pdf
+      - name: Build
+        run: yarn && yarn build
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: f81080552fd4a731cc7942c29b33df15
+          command: pages deploy dist/cloudflare/ --project-name=devksingh4-web
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
