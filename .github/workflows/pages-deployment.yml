@@ -19,7 +19,9 @@ jobs:
         with:
           format: pdf
           filename: resume/main.tex
-          options: -pdf -jobname=public/Dev_Singh_resume.pdf
+          options: -pdf -jobname=resume/Dev_Singh_resume
+      - name: Copy artifact
+        run: mv resume/Dev_Singh_resume.pdf public/
       - name: Build
         run: yarn && yarn build
       - name: Deploy
