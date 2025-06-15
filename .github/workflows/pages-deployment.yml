@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.DEPLOY_PAT }}
+          token: ${{ secrets.WEBSITE_REPO_TOKEN }}
       - name: Generate PDF document
         uses: hspaans/latexmk-action@v2.1.0
         with:
