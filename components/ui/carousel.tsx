@@ -26,8 +26,11 @@ type CarouselContextProps = {
   api: ReturnType<typeof useEmblaCarousel>[1]
   scrollPrev: () => void
   scrollNext: () => void
+  scrollTo: (index: number) => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  selectedIndex: number
+  scrollSnaps: number[]
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -67,15 +70,24 @@ const Carousel = React.forwardRef<
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [selectedIndex, setSelectedIndex] = React.useState(0)
+    const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
         return
       }
-
+      setSelectedIndex(api.selectedScrollSnap())
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
     }, [])
+
+    const scrollTo = React.useCallback(
+      (index: number) => {
+        api?.scrollTo(index)
+      },
+      [api]
+    )
 
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev()
@@ -111,12 +123,17 @@ const Carousel = React.forwardRef<
         return
       }
 
+      setScrollSnaps(api.scrollSnapList())
       onSelect(api)
-      api.on("reInit", onSelect)
+      api.on("reInit", (api) => {
+        setScrollSnaps(api.scrollSnapList())
+        onSelect(api)
+      })
       api.on("select", onSelect)
 
       return () => {
         api?.off("select", onSelect)
+        api?.off("reInit", onSelect)
       }
     }, [api, onSelect])
 
@@ -132,6 +149,9 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          selectedIndex,
+          scrollSnaps,
+          scrollTo,
         }}
       >
         <div
@@ -252,6 +272,45 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = "CarouselNext"
 
+// --- NEW COMPONENT ---
+const CarouselPagination = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const { scrollSnaps, selectedIndex, scrollTo } = useCarousel()
+
+  return (
+    <div
+      ref={ref}
+      role="tablist"
+      className={cn(
+        "absolute bottom-4 left-0 right-0 flex items-center justify-center gap-2",
+        className
+      )}
+      {...props}
+    >
+      {scrollSnaps.map((_, index) => (
+        <Button
+          key={index}
+          role="tab"
+          aria-selected={selectedIndex === index}
+          variant="ghost"
+          size="icon"
+          className={cn(
+            "h-2 w-2 rounded-full p-0",
+            selectedIndex === index ? "bg-white" : "bg-white/20"
+          )}
+          onClick={() => scrollTo(index)}
+        >
+          <span className="sr-only">Go to slide {index + 1}</span>
+        </Button>
+      ))}
+    </div>
+  )
+})
+CarouselPagination.displayName = "CarouselPagination"
+
+
 export {
   type CarouselApi,
   Carousel,
@@ -259,4 +318,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselPagination, // <-- Export the new component
 }

@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPagination, CarouselPrevious } from "@/components/ui/carousel"
 import { Github, Linkedin, Mail, FileText, Building, GraduationCap } from "lucide-react"
 import { portfolio } from "@/lib/portfolio-data"
 
@@ -40,8 +40,8 @@ export function PortfolioSection() {
             <Image
               src={portfolio.picture || "/placeholder.svg"}
               alt={portfolio.name}
-              width={120}
-              height={120}
+              width={160}
+              height={160}
               className="rounded-full border-4 border-white/20"
             />
           </div>
@@ -81,6 +81,7 @@ export function PortfolioSection() {
         {allCurrent.length > 0 && (
           <div className="space-y-3">
             <h3 className="font-semibold text-xl">Experience</h3>
+            <p className="text-sm text-gray-400 mt-[-8px]">Click on the Background tab for more information.</p>
             <Carousel
               opts={{
                 align: "start",
@@ -99,7 +100,7 @@ export function PortfolioSection() {
                             {exp.dates}
                           </Badge>
                         </div>
-                        <p className="text-sm text-white/80 mb-2">{exp.company}</p>
+                        <p className="text-sm text-white/80 mb-2">{exp.company} - {exp.location}</p>
                         {exp.bullets?.[0] && (
                           <p className="text-xs text-white/60 leading-relaxed">{exp.bullets[0]}</p>
                         )}
@@ -108,8 +109,9 @@ export function PortfolioSection() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-[-8px] bg-white/10 border-white/20 hover:bg-white/20 text-white" />
-              <CarouselNext className="right-[-8px] bg-white/10 border-white/20 hover:bg-white/20 text-white" />
+              <CarouselPrevious className="left-[-18px] bg-white/10 border-white/20 hover:bg-white/20 text-white" />
+              <CarouselNext className="right-[-18px] bg-white/10 border-white/20 hover:bg-white/20 text-white" />
+              <CarouselPagination />
             </Carousel>
           </div>
         )}
@@ -137,14 +139,13 @@ export function PortfolioSection() {
             <Mail className="w-4 h-4" />
             <span className="text-sm">Email</span>
           </Link>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center pt-4">
-          <Button size="lg" className="bg-white text-black hover:bg-white/90 font-medium px-8">
-            <FileText className="w-4 h-4 mr-2" />
-            View Full Resume
-          </Button>
+          <Link
+            href={portfolio.links.resume}
+            className="flex items-center space-x-2 px-4 py-2 bg-white hover:bg-white/90 rounded-lg transition-colors text-black"
+          >
+            <FileText className="w-4 h-4" />
+            <span className="text-sm">Resume</span>
+          </Link>
         </div>
       </CardContent>
     </Card>
