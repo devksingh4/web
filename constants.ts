@@ -1,0 +1,1 @@
+export const GRADIENT = "from-blue-900 via-blue-700 to-blue-500"

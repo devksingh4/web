@@ -1,7 +1,8 @@
-# My website
+# Dev Singh's Website
 
-This is the source code for my website, hosted [here](https://devksingh.com).
+## Getting Started
 
-# Getting Started
-
-Run `yarn`, then `yarn dev`. Change any data in `data.ts`.
+```bash
+yarn
+yarn dev
+```

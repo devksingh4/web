@@ -25,11 +25,11 @@ jobs:
       - name: Copy artifact
         run: mv resume/Dev_Singh_resume.pdf public/
       - name: Build
-        run: yarn && yarn build
+        run: yarn && yarn build:wrangler
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: f81080552fd4a731cc7942c29b33df15
-          command: pages deploy dist/cloudflare/ --project-name=devksingh4-web
+          command: opennextjs-cloudflare deploy -- --project-name=devksingh4-web-opennext
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
