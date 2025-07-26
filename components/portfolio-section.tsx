@@ -1,9 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPagination, CarouselPrevious } from "@/components/ui/carousel"
 import { Github, Linkedin, Mail, FileText, Building, GraduationCap } from "lucide-react"
 import { portfolio } from "@/lib/portfolio-data"
 
@@ -28,8 +26,6 @@ export function PortfolioSection() {
       .filter(pos => pos.current === true)
       .map(pos => ({ ...pos, company: exp.company, }))
   );
-
-  const allCurrent = [...currentExperience, ...currentEducation]
 
   return (
     <Card className="w-full max-w-3xl bg-black/80 border-white/10 text-white">
@@ -75,6 +71,7 @@ export function PortfolioSection() {
                 </div>
               ))}
             </div>
+            <p className="text-sm text-white/70">Also check out <Link href="/background" className="text-blue-500 dark:text-blue-400 hover:underline">my background</Link>!</p>
           </div>
         )}
 

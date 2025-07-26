@@ -10,8 +10,17 @@ import { portfolio } from "@/lib/portfolio-data"
 import { GRADIENT } from "@/constants"
 
 export default function Portfolio({ initialTab }: { initialTab: string }) {
-  const [activeTab, setActiveTab] = useState(initialTab || "portfolio")
+  const homePageState = "portfolio";
+  const [activeTab, setActiveTabState] = useState(initialTab || homePageState)
   const currentYear = new Date().getFullYear();
+  const setActiveTab = (st: string) => {
+    if (st === homePageState) {
+      window.history.pushState(null, '', "/")
+    } else {
+      window.history.pushState(null, '', `/${st}`)
+    }
+    setActiveTabState(st);
+  }
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${GRADIENT}`}>
