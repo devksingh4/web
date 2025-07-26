@@ -22,7 +22,8 @@ jobs:
           format: pdf
           working_directory: 'resume'
           args: '-pdf -jobname=Dev_Singh_resume'
-          root_file: ['main.tex']
+          root_file: |
+            main.tex
       - name: Copy artifact
         run: mv resume/Dev_Singh_resume.pdf public/
       - name: Build
