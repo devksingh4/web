@@ -117,31 +117,31 @@ export function PortfolioSection() {
         )}
 
         {/* Contact Links */}
-        <div className="flex justify-center space-x-4 pt-4">
+        <div className="flex w-full flex-col sm:flex-row justify-center gap-4 pt-4">
           <Link
             href={`https://github.com/${portfolio.links.github}`}
-            className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            className="w-full sm:w-auto flex justify-center items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
           >
             <Github className="w-4 h-4" />
             <span className="text-sm">GitHub</span>
           </Link>
           <Link
             href={`https://linkedin.com/in/${portfolio.links.linkedin}`}
-            className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            className="w-full sm:w-auto flex justify-center items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
           >
             <Linkedin className="w-4 h-4" />
             <span className="text-sm">LinkedIn</span>
           </Link>
           <Link
             href={`mailto:${portfolio.links.email}`}
-            className="flex items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            className="w-full sm:w-auto flex justify-center items-center space-x-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
           >
             <Mail className="w-4 h-4" />
             <span className="text-sm">Email</span>
           </Link>
           <Link
             href={portfolio.links.resume}
-            className="flex items-center space-x-2 px-4 py-2 bg-white hover:bg-white/90 rounded-lg transition-colors text-black"
+            className="w-full sm:w-auto flex justify-center items-center space-x-2 px-4 py-2 bg-white hover:bg-white/90 rounded-lg transition-colors text-black"
           >
             <FileText className="w-4 h-4" />
             <span className="text-sm">Resume</span>
