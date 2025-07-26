@@ -18,5 +18,15 @@
 			// See https://developers.cloudflare.com/workers/wrangler/commands/#r2-bucket-create
 			"bucket_name": "cache"
 		}
-	]
+	],
+	"routes": [
+		{
+		"pattern": "www.devksingh.com",
+		"custom_domain": true
+		},
+		{
+		"pattern": "devksingh.com",
+		"custom_domain": true
+		}
+  	]
 }
