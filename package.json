@@ -8,9 +8,9 @@
 		"lint": "next lint",
 		"start": "next start",
 		"build:wrangler": "opennextjs-cloudflare build",
-		"preview": "yarn build:wrangler && opennextjs-cloudflare preview",
-		"deploy": "yarn build:wrangler && opennextjs-cloudflare deploy",
-		"upload": "yarn build:wrangler && opennextjs-cloudflare upload",
+		"preview": "opennextjs-cloudflare preview",
+		"deploy": "opennextjs-cloudflare deploy",
+		"upload": "opennextjs-cloudflare upload",
 		"cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
 	},
 	"dependencies": {
