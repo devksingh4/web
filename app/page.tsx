@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Navigation } from "@/components/navigation"
 import { PortfolioSection } from "@/components/portfolio-section"
 import { BackgroundSection } from "@/components/background-section"
@@ -18,9 +19,19 @@ export default function Portfolio() {
 
       {/* Main Content */}
       <div className="flex items-center justify-center min-h-[calc(100vh-120px)] px-4">
-        {activeTab === "portfolio" && <PortfolioSection />}
-        {activeTab === "background" && <BackgroundSection />}
-        {activeTab === "blog" && <BlogSection />}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab} // Unique key to trigger animation on change
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.1 }} // Animation duration
+          >
+            {activeTab === "portfolio" && <PortfolioSection />}
+            {activeTab === "background" && <BackgroundSection />}
+            {activeTab === "blog" && <BlogSection />}
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Footer */}

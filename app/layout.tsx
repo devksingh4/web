@@ -5,7 +5,7 @@ import './globals.css'
 import { portfolio } from '@/lib/portfolio-data';
 
 export const metadata: Metadata = {
-  title: 'Dev Singh',
+  title: portfolio.name,
   description: portfolio.blurb,
 };
 
