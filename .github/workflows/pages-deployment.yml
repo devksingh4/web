@@ -28,7 +28,7 @@ jobs:
         run: yarn && yarn build:wrangler
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
-        env:
+        with:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: f81080552fd4a731cc7942c29b33df15
           command: opennextjs-cloudflare deploy -- --project-name=devksingh4-web-opennext
