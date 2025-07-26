@@ -7,13 +7,6 @@ import { BackgroundSection } from "@/components/background-section"
 import { BlogSection } from "@/components/blog-section"
 import { portfolio } from "@/lib/portfolio-data"
 import { GRADIENT } from "@/constants"
-import { type Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Home | Dev Singh',
-  description: portfolio.blurb,
-};
-
 
 export default function Portfolio() {
   const [activeTab, setActiveTab] = useState("portfolio")
