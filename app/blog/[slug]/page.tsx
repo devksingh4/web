@@ -7,6 +7,7 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react"
 import { getBlogPost, getBlogPostSlugs } from "@/lib/blog"
 import { GRADIENT } from "@/constants"
 import { type Metadata } from "next"
+import { portfolio } from "@/lib/portfolio-data"
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -15,7 +16,7 @@ interface BlogPostPageProps {
 export const dynamicParams = false;
 
 export const metadata: Metadata = {
-  title: 'Blog | Dev Singh',
+  title: `Blog | ${portfolio.name}`,
   description: "A collection of my thoughts.",
 };
 
