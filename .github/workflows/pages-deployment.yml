@@ -16,14 +16,14 @@ jobs:
         with:
           submodules: recursive
           token: ${{ secrets.DEPLOY_PAT }}
-      # - name: Generate PDF document
-      #   uses: hspaans/latexmk-action@v2.1.0
-      #   with:
-      #     format: pdf
-      #     filename: resume/main.tex
-      #     options: -pdf -jobname=resume/Dev_Singh_resume
-      # - name: Copy artifact
-      #   run: mv resume/Dev_Singh_resume.pdf public/
+      - name: Generate PDF document
+        uses: hspaans/latexmk-action@v2.1.0
+        with:
+          format: pdf
+          filename: resume/main.tex
+          options: -pdf -jobname=resume/Dev_Singh_resume
+      - name: Copy artifact
+        run: mv resume/Dev_Singh_resume.pdf public/
       - name: Build
         run: yarn && yarn build:wrangler
       - name: Deploy
