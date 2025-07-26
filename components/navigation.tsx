@@ -26,7 +26,7 @@ export function Navigation({ activeTab, setActiveTab }: NavigationProps) {
           }
           onClick={() => setActiveTab("portfolio")}
         >
-          Portfolio
+          Home
         </Button>
         <Button
           variant={activeTab === "background" ? "secondary" : "ghost"}

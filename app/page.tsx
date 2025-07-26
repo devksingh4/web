@@ -9,8 +9,8 @@ import { BlogSection } from "@/components/blog-section"
 import { portfolio } from "@/lib/portfolio-data"
 import { GRADIENT } from "@/constants"
 
-export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState("portfolio")
+export default function Portfolio({ initialTab }: { initialTab: string }) {
+  const [activeTab, setActiveTab] = useState(initialTab || "portfolio")
   const currentYear = new Date().getFullYear();
 
   return (
