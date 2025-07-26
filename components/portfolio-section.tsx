@@ -54,10 +54,10 @@ export function PortfolioSection() {
         {/* Current Status (renders items with "current: true") */}
         {(currentEducation.length > 0 || currentExperience.length > 0) && (
           <div className="bg-white/5 rounded-lg p-4 space-y-3">
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
               {currentExperienceWithIncoming.map((pos, index) => (
                 <div key={`exp-${index}`} className="flex items-center space-x-2">
-                  <Badge variant="secondary" className="bg-blue-600/20 text-blue-200 border-blue-400/20">
+                  <Badge variant="secondary" className="bg-blue-600/20 text-blue-200 border-blue-400/20 hover:bg-blue-600/90">
                     <Building className="w-3 h-3 mr-1" />
                     {pos.incoming && "Incoming"} {pos.title}
                   </Badge>
@@ -66,7 +66,7 @@ export function PortfolioSection() {
               ))}
               {currentEducation.map((pos, index) => (
                 <div key={`edu-${index}`} className="flex items-center space-x-2">
-                  <Badge variant="secondary" className="bg-purple-600/20 text-purple-200 border-purple-400/20">
+                  <Badge variant="secondary" className="bg-purple-600/20 text-purple-200 border-purple-400/20 hover:bg-purple-600/90">
                     <GraduationCap className="w-3 h-3 mr-1" />
                     {pos.title}
                   </Badge>
