@@ -17,11 +17,12 @@ jobs:
           submodules: recursive
           token: ${{ secrets.DEPLOY_PAT }}
       - name: Generate PDF document
-        uses: hspaans/latexmk-action@v2.1.0
+        uses: xu-cheng/latex-action@v4
         with:
           format: pdf
-          filename: resume/main.tex
-          options: -pdf -jobname=resume/Dev_Singh_resume
+          working_directory: 'resume'
+          args: '-pdf -jobname=Dev_Singh_resume'
+          root_file: ['main.tex']
       - name: Copy artifact
         run: mv resume/Dev_Singh_resume.pdf public/
       - name: Build
