@@ -48,7 +48,7 @@ export const portfolio = {
           bullets: [
             "Engineered a custom data collection environment to capture and log C++ compilation errors from student development environments, creating a dataset for pedagogical analysis.",
           ],
-          current: false,
+          current: true,
           incoming: false,
         },
         {
@@ -74,7 +74,7 @@ export const portfolio = {
           incoming: false,
         },
       ],
-      link: "https://illinois.edu",
+      link: "https://siebelschool.illinois.edu",
     },
     {
       company: "Caterpillar",
