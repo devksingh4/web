@@ -21,7 +21,7 @@ export const portfolio = {
           location: "New York, NY",
           dates: "June 2025 - August 2025",
           bullets: ["Working on the Premium Products and Experiences team."],
-          current: true,
+          current: false,
           incoming: false,
         },
         {
@@ -42,6 +42,16 @@ export const portfolio = {
       company: "University of Illinois Urbana-Champaign",
       positions: [
         {
+          title: "Research Assistant",
+          location: "Urbana, IL",
+          dates: "August 2025 - Present",
+          bullets: [
+            "Engineered a custom data collection environment to capture and log C++ compilation errors from student development environments, creating a dataset for pedagogical analysis.",
+          ],
+          current: false,
+          incoming: false,
+        },
+        {
           title: "Systems Programming Infra Lead",
           location: "Urbana, IL",
           dates: "August 2024 - Present",
@@ -49,6 +59,16 @@ export const portfolio = {
             "Designed and implemented a new distributed autograder system for CS 341, the introductory systems programming course at UIUC.",
             "Maintained interoperability with existing systems while deploying new ones to improve student and course staff experiences.",
             "Led recitation sections alongside course faculty to facilitate a deeper understanding of core concepts.",
+          ],
+          current: true,
+          incoming: false,
+        },
+        {
+          title: "Numerical Methods Course Assistant  ",
+          location: "Urbana, IL",
+          dates: "January 2023 - May 2025",
+          bullets: [
+            "Assisted students with group assignments and general understanding of numerical analysis methods.",
           ],
           current: true,
           incoming: false,
