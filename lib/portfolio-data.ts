@@ -64,17 +64,17 @@ export const portfolio = {
           incoming: false,
         },
         {
-          title: "Numerical Methods Course Assistant  ",
+          title: "Numerical Methods Course Assistant",
           location: "Urbana, IL",
           dates: "January 2023 - May 2025",
           bullets: [
             "Assisted students with group assignments and general understanding of numerical analysis methods.",
           ],
-          current: true,
+          current: false,
           incoming: false,
         },
       ],
-      link: "https://cs341.cs.illinois.edu",
+      link: "https://illinois.edu",
     },
     {
       company: "Caterpillar",
