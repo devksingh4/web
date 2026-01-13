@@ -1,10 +1,13 @@
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { getAllBlogPosts } from "@/lib/blog"
+import type { BlogPost } from "@/lib/blog"
 
-export function BlogSection() {
-  const blogPosts = getAllBlogPosts()
+interface BlogSectionProps {
+  blogPosts: BlogPost[]
+}
+
+export function BlogSection({ blogPosts }: BlogSectionProps) {
 
   return (
     <Card className="w-full max-w-4xl bg-black/80 border-white/10 text-white">

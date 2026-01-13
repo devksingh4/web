@@ -4,15 +4,14 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { FileText } from "lucide-react"
 import { portfolio } from "@/lib/portfolio-data"
-import { getAllBlogPosts } from "@/lib/blog"
 
 interface NavigationProps {
   activeTab: string
   setActiveTab: (tab: string) => void
+  hasBlogPosts: boolean
 }
 
-export function Navigation({ activeTab, setActiveTab }: NavigationProps) {
-  const blogPosts = getAllBlogPosts()
+export function Navigation({ activeTab, setActiveTab, hasBlogPosts }: NavigationProps) {
   return (
     <nav className="flex justify-between items-center p-6">
       <div className="flex space-x-1">
@@ -40,7 +39,7 @@ export function Navigation({ activeTab, setActiveTab }: NavigationProps) {
         >
           Background
         </Button>
-        {blogPosts.length > 0 && <Button
+        {hasBlogPosts && <Button
           variant={activeTab === "blog" ? "secondary" : "ghost"}
           size="sm"
           className={
