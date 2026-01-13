@@ -103,6 +103,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 ))}
               </div>
               <h1 className="text-6xl font-bold leading-tight">{post.title}</h1>
+              <h2 className="text-md italic leading-tight">{post.excerpt}</h2>
               <div className="flex items-center space-x-4 text-white/60">
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
