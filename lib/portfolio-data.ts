@@ -1,4 +1,4 @@
-import me from '@/assets/me.jpg'
+import me from "@/assets/me.jpg";
 
 export const portfolio = {
   name: "Dev Singh",
@@ -60,7 +60,7 @@ export const portfolio = {
             "Maintained interoperability with existing systems while deploying new ones to improve student and course staff experiences.",
             "Led recitation sections alongside course faculty to facilitate a deeper understanding of core concepts.",
           ],
-          current: true,
+          current: false,
           incoming: false,
         },
         {
@@ -125,7 +125,7 @@ export const portfolio = {
             "Combined undergraduate/graduate program.",
             "Undergraduate minor in Business.",
             "Chair of the ACM @ UIUC Infrastructure Committee, where we develop solutions to manage club operations and technology infrastructure.",
-            "Served as the Treasurer of ACM @ UIUC from 2023-2024."
+            "Served as the Treasurer of ACM @ UIUC from 2023-2024.",
           ],
           current: true,
           incoming: false,
@@ -149,4 +149,4 @@ export const portfolio = {
       ],
     },
   ],
-}
+};
