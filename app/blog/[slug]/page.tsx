@@ -1,16 +1,17 @@
-import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Comments } from "@/components/comments";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
-import { getBlogPost, getBlogPostSlugs } from "@/lib/blog";
 import { GRADIENT } from "@/constants";
-import { type Metadata } from "next";
+import { getBlogPost, getBlogPostSlugs } from "@/lib/blog";
 import { portfolio } from "@/lib/portfolio-data";
+import { ArrowLeft, Calendar, User } from "lucide-react";
+import { type Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Comments } from "@/components/comments";
+
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -23,19 +24,16 @@ export async function generateMetadata({
 }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getBlogPost(slug);
-
-  if (!post) {
+  if (!post || !post.published) {
     return {
       title: `Blog | ${portfolio.name}`,
       description: "Blog post not found.",
     };
   }
-
   // Generate description from content (first 160 characters or specified excerpt)
   const description =
     post.excerpt ||
     post.content.substring(0, 160).replace(/\n/g, " ").trim() + "...";
-
   return {
     title: `${post.title} | ${portfolio.name}`,
     description: description,
@@ -85,7 +83,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </Button>
         </Link>
       </nav>
-
       {/* Main Content */}
       <div className="flex items-start justify-center min-h-[calc(100vh-120px)] px-4 py-8">
         <Card className="w-full max-w-[90vw] bg-black/80 border-white/10 text-white">
