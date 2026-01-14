@@ -54,7 +54,7 @@ export const portfolio = {
         {
           title: "Systems Programming Infra Lead",
           location: "Urbana, IL",
-          dates: "August 2024 - Present",
+          dates: "August 2024 - January 2026",
           bullets: [
             "Designed and implemented a new distributed autograder system for CS 341, the introductory systems programming course at UIUC.",
             "Maintained interoperability with existing systems while deploying new ones to improve student and course staff experiences.",
