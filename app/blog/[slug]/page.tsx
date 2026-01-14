@@ -177,7 +177,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     },
                     section: ({ node, ...props }) => {
                       // Check if this is the footnotes section
-                      const isFootnotes = props["data-footnotes"] !== undefined;
+                      const isFootnotes = (props as any)["data-footnotes"] !== undefined;
                       return (
                         <section
                           className={
