@@ -10,6 +10,7 @@ import { type Metadata } from "next";
 import { portfolio } from "@/lib/portfolio-data";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { Comments } from "@/components/comments";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -102,7 +103,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   </Badge>
                 ))}
               </div>
-              <h1 className="text-6xl font-bold leading-tight">{post.title}</h1>
+              <h1 className="text-6xl font-bold leading-tight break-all">
+                {post.title}
+              </h1>
               <h2 className="text-md italic leading-tight">{post.excerpt}</h2>
               <div className="flex items-center space-x-4 text-white/60">
                 <div className="flex items-center space-x-1">
@@ -222,6 +225,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </ReactMarkdown>
               </div>
             </div>
+
+            <Comments />
 
             {/* Footer */}
             <div className="border-t border-white/20 pt-6 mt-8">
