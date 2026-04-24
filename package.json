@@ -7,13 +7,14 @@
   "scripts": {
     "astro": "astro",
     "build": "astro build",
+    "deploy": "yarn run build && wrangler deploy",
     "dev": "astro dev",
     "format:check": "prettier . --check && eslint .",
     "format:fix": "prettier . --write && eslint . --fix",
     "postinstall": "npm run setup && husky install",
     "prepare": "husky install || true",
     "prettier:write": "prettier . --write",
-    "preview": "astro preview",
+    "preview": "yarn run build && wrangler dev",
     "setup": "git config blame.ignoreRevsFile .git-blame-ignore-revs",
     "typecheck": "astro check"
   },
@@ -53,6 +54,7 @@
     "prettier-plugin-tailwindcss": "^0.7.3",
     "tailwindcss": "^4.2.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.0"
+    "typescript-eslint": "^8.59.0",
+    "wrangler": "^4.85.0"
   }
 }

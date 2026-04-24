@@ -47,3 +47,10 @@ examples/**/env.d.ts
 packages/astro/e2e/fixtures/cloudflare/.wrangler/deploy/config.json
 .claude/
 *:Zone.Identifier
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
