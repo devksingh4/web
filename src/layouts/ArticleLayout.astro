@@ -1,0 +1,62 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  tags: string[];
+  byline: string;
+  date: string;
+  excerpt: string;
+}
+
+const { title, description, tags, byline, date, excerpt } = Astro.props;
+---
+
+<Layout
+  title={`${title} — Dev Singh`}
+  description={description ?? excerpt}
+  ogType="article"
+>
+  <div
+    class="w-full max-w-6xl bg-black/80 border border-white/10 rounded-lg text-white p-8 space-y-6"
+  >
+    <div class="space-y-4">
+      <div class="flex flex-wrap gap-2">
+        {
+          tags.map((tag) => (
+            <span class="px-2 py-0.5 rounded-full text-xs bg-purple-600/20 text-purple-200 border border-purple-400/20">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+      <h1 class="text-4xl font-bold leading-tight">{title}</h1>
+      <div class="flex flex-wrap items-center gap-4 text-base text-white/70">
+        <span>{byline}</span>
+        <span>•</span>
+        <span>{date}</span>
+      </div>
+      <p
+        class="text-lg text-white/90 leading-relaxed border-l-2 border-white/20 pl-4 italic"
+      >
+        {excerpt}
+      </p>
+    </div>
+
+    <hr class="border-white/10" />
+
+    <article class="prose-content">
+      <slot />
+    </article>
+
+    <hr class="border-white/10" />
+
+    <a
+      href="/blog"
+      class="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors"
+    >
+      ← Back to blog
+    </a>
+  </div>
+</Layout>

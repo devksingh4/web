@@ -1,0 +1,20 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  wide?: boolean;
+  fullHeight?: boolean;
+}
+
+const { title, description, wide = false, fullHeight = false } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div
+    class={`w-full bg-black/80 border border-white/10 rounded-lg text-white p-8 space-y-8 ${wide ? 'max-w-4xl' : 'max-w-3xl'} ${fullHeight ? 'min-h-[calc(100vh-200px)]' : ''}`}
+  >
+    <slot />
+  </div>
+</Layout>

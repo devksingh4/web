@@ -1,0 +1,109 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+import { portfolio } from '../data/portfolio';
+import profilePic from '../assets/me.webp';
+
+const currentExperience = portfolio.experience.flatMap((exp) =>
+  exp.positions
+    .filter((p) => p.current || p.incoming)
+    .map((p) => ({ ...p, company: exp.company }))
+);
+
+const currentEducation = portfolio.education.flatMap((edu) =>
+  edu.positions
+    .filter((p) => p.current)
+    .map((p) => ({ ...p, company: edu.company }))
+);
+---
+
+<PageLayout title="Dev Singh">
+  <div class="text-center space-y-4">
+    <Image
+      src={profilePic}
+      alt={portfolio.name}
+      width={160}
+      height={160}
+      densities={[1, 2, 3]}
+      class="rounded-full border-4 border-white/20 mx-auto"
+    />
+    <div>
+      <h1 class="text-3xl font-bold mb-2">{portfolio.greeting}</h1>
+      <p class="text-white/90 leading-relaxed max-w-lg mx-auto">
+        {portfolio.blurb}
+      </p>
+    </div>
+  </div>
+
+  {
+    (currentExperience.length > 0 || currentEducation.length > 0) && (
+      <div class="bg-white/5 rounded-lg p-4 space-y-3">
+        <h3 class="font-semibold text-xl">Current Activity</h3>
+        <div class="flex flex-col sm:flex-row sm:flex-wrap gap-2">
+          {currentExperience.map((pos) => (
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold transition-colors bg-blue-600/20 text-blue-200 border border-blue-400/20 hover:bg-blue-600/90">
+                <Icon name="lucide:building-2" class="w-3 h-3" />
+                {pos.incoming && 'Incoming'} {pos.title}
+              </span>
+              <span class="text-sm text-white/70">
+                @ {pos.company} ({pos.location})
+              </span>
+            </div>
+          ))}
+          {currentEducation.map((pos) => (
+            <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold transition-colors bg-purple-600/20 text-purple-200 border border-purple-400/20 hover:bg-purple-600/90">
+                <Icon name="lucide:graduation-cap" class="w-3 h-3" />
+                {pos.title}
+              </span>
+              <span class="text-sm text-white/70">@ {pos.company}</span>
+            </div>
+          ))}
+        </div>
+        <p class="text-sm text-white/70">
+          Also check out{' '}
+          <a href="/background" class="text-blue-400 hover:underline">
+            my background
+          </a>
+          !
+        </p>
+      </div>
+    )
+  }
+
+  <div class="flex w-full flex-col sm:flex-row justify-center gap-4 pt-4">
+    <a
+      href={`https://github.com/${portfolio.links.github}`}
+      target="_blank"
+      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
+    >
+      <Icon name="lucide:github" class="w-4 h-4" />
+      GitHub
+    </a>
+    <a
+      href={`https://linkedin.com/in/${portfolio.links.linkedin}`}
+      target="_blank"
+      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
+    >
+      <Icon name="lucide:linkedin" class="w-4 h-4" />
+      LinkedIn
+    </a>
+    <a
+      href={`mailto:${portfolio.links.email}`}
+      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
+    >
+      <Icon name="lucide:mail" class="w-4 h-4" />
+      Email
+    </a>
+    <a
+      href={portfolio.links.resume}
+      target="_blank"
+      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white hover:bg-white/90 rounded-lg transition-colors text-sm text-black font-medium"
+    >
+      <Icon name="lucide:file-text" class="w-4 h-4" />
+      Resume
+    </a>
+  </div>
+</PageLayout>

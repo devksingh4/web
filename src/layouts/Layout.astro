@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import { Icon } from 'astro-icon/components';
+import { getImage } from 'astro:assets';
+import meWebp from '../assets/me.webp';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+}
+
+const {
+  title = 'Dev Singh',
+  description = 'Personal website of Dev Singh.',
+  ogType = 'website',
+} = Astro.props;
+
+const ogImageAsset = await getImage({
+  src: meWebp,
+  width: 1200,
+  format: 'webp',
+});
+const ogImage = new URL(ogImageAsset.src, Astro.site).href;
+const canonicalUrl = Astro.url.href;
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/background', label: 'Background' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Dev Singh" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Dev Singh" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-blue-900 via-blue-700 to-blue-500"
+  >
+    <nav class="flex justify-between items-center p-6">
+      <div class="flex space-x-1">
+        {
+          navLinks.map(({ href, label }) => {
+            const active =
+              href === '/' ? pathname === '/' : pathname.startsWith(href);
+            return (
+              <a
+                href={href}
+                class={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                  active
+                    ? 'bg-black/20 text-white border border-white/20'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {label}
+              </a>
+            );
+          })
+        }
+      </div>
+      <a
+        href="/Dev_Singh_resume.pdf"
+        target="_blank"
+        class="flex items-center gap-2 px-3 py-1.5 text-sm bg-white/10 text-white border border-white/20 hover:bg-white/20 rounded-md transition-colors"
+      >
+        <Icon name="lucide:file-text" class="w-4 h-4" />
+        Resume
+      </a>
+    </nav>
+
+    <div
+      class="flex items-center justify-center min-h-[calc(100vh-120px)] px-4 py-8"
+    >
+      <slot />
+    </div>
+
+    <div class="text-center pb-6 mt-2">
+      <span class="text-white/50 text-sm"
+        >&copy; {new Date().getFullYear()} Dev Singh</span
+      >
+    </div>
+  </body>
+</html>
