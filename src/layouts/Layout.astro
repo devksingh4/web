@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { Icon } from 'astro-icon/components';
 import { getImage } from 'astro:assets';
-import meWebp from '../assets/me.webp';
+import siteIcon from '../../public/android-chrome-512x512.png';
 
 interface Props {
   title?: string;
@@ -17,9 +17,9 @@ const {
 } = Astro.props;
 
 const ogImageAsset = await getImage({
-  src: meWebp,
+  src: siteIcon,
   width: 1200,
-  format: 'webp',
+  format: 'png',
 });
 const ogImage = new URL(ogImageAsset.src, Astro.site).href;
 const canonicalUrl = Astro.url.href;
