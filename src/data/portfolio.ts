@@ -68,7 +68,7 @@ export const portfolio = {
             'Shipped open-source conversion tooling to PrairieLearn that parses Canvas/QTI exports into its native question format, enabling instructors to migrate existing assessments across platforms without manual recreation.',
             'Designed and merged a question preferences feature into PrairieLearn, enabling instructors to pass parameters to questions from their assessment, allowing a single question to be reused across contexts with varied configurations.',
           ],
-          current: false,
+          current: true,
           incoming: false,
         },
         {
