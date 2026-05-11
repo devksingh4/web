@@ -29,7 +29,4 @@ export default defineConfig({
       filter: (page) => !page.startsWith('https://devksingh.com/admin/'),
     }),
   ],
-  experimental: {
-    svgo: true,
-  },
 });
