@@ -54,3 +54,9 @@ packages/astro/e2e/fixtures/cloudflare/.wrangler/deploy/config.json
 !.dev.vars.example
 .env*
 !.env.example
+
+# Yarn v4
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp.*
