@@ -5,15 +5,14 @@ interface Props {
   title?: string;
   description?: string;
   wide?: boolean;
-  fullHeight?: boolean;
 }
 
-const { title, description, wide = false, fullHeight = false } = Astro.props;
+const { title, description, wide = false } = Astro.props;
 ---
 
 <Layout title={title} description={description}>
   <div
-    class={`w-full bg-black/80 border border-white/10 rounded-lg text-white p-8 space-y-8 ${wide ? 'max-w-4xl' : 'max-w-3xl'} ${fullHeight ? 'min-h-[calc(100vh-200px)]' : ''}`}
+    class={`w-full bg-black/80 border border-white/10 rounded-lg text-white p-10 sm:p-12 space-y-8 min-h-[18rem] ${wide ? 'max-w-4xl' : 'max-w-3xl'}`}
   >
     <slot />
   </div>

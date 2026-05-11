@@ -1,6 +1,6 @@
 # Agent Guide
 
-Personal portfolio and blog site for devksingh.com, built with Astro 6, Tailwind CSS v4, and MDX. Deployed to GitHub Pages via Github Actions.
+Personal portfolio and blog site for devksingh.com, built with Astro 6, Tailwind CSS v4, and MDX. Deployed to Cloudflare Pages via Github Actions.
 
 ## Commands
 
@@ -19,6 +19,8 @@ yarn typecheck && yarn format:fix
 ```
 
 CI runs `yarn typecheck` and `yarn format:check` on every push to master. Builds that fail either check won't deploy.
+
+**Keep this file accurate:** if a change you make causes anything in `AGENTS.md` to become wrong or out of date (commands, structure, deployment, tech choices, etc.), update `AGENTS.md` in the same change.
 
 ## Project Structure
 
@@ -79,5 +81,4 @@ ESLint config is in `eslint.config.mjs`. Husky runs `lint-staged` on pre-commit,
 Pushes to `master` trigger the GitHub Actions workflow (`.github/workflows/deploy.yml`):
 
 1. `check` job: typecheck + format check
-2. `build` job: `astro build`
-3. `deploy` job: uploads `./build` to GitHub Pages (runs only if both pass)
+2. `deploy` job: runs `yarn run deploy` to build and publish to Cloudflare Pages (uses `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`)
