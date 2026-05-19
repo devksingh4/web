@@ -68,7 +68,7 @@ export const portfolio = {
             'Shipped open-source conversion tooling to PrairieLearn that parses Canvas/QTI exports into its native question format, enabling instructors to migrate existing assessments across platforms without manual recreation.',
             'Designed and merged a question preferences feature into PrairieLearn, enabling instructors to pass parameters to questions from their assessment, allowing a single question to be reused across contexts with varied configurations.',
           ],
-          current: true,
+          current: false,
           incoming: false,
         },
         {
@@ -119,7 +119,7 @@ export const portfolio = {
             'Chair of the ACM @ UIUC Infrastructure Committee, where we develop solutions to manage club operations and technology infrastructure.',
             'Served as the Treasurer of ACM @ UIUC from 2023-2024.',
           ],
-          current: true,
+          current: false,
           incoming: false,
         },
       ],
