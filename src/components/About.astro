@@ -1,0 +1,39 @@
+---
+import Label from './Label.astro';
+import { portfolio } from '../data/portfolio';
+
+interface Props {
+  index: number;
+}
+const { index } = Astro.props;
+---
+
+<section class="border-t border-rule pt-12 pb-20">
+  <div class="grid gap-8 md:grid-cols-[160px_1fr_1fr]" data-reveal>
+    <Label index={index} name="About" />
+    <p class="m-0 text-[15px] leading-relaxed">{portfolio.longBio}</p>
+    <div class="grid content-start gap-[22px]">
+      {
+        portfolio.skills.map((group, i) => (
+          <div id={`skills-${i}`} class="border-t border-rule pt-2.5">
+            <div class="mb-2 text-[11px] tracking-[1.2px] text-muted uppercase">
+              {group.label}
+            </div>
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[14px]">
+              {group.items.map((s, i) => (
+                <Fragment>
+                  <span>{s}</span>
+                  {i < group.items.length - 1 && (
+                    <span class="text-muted" aria-hidden="true">
+                      ·
+                    </span>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

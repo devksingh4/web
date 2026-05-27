@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Label from './Label.astro';
+import PostList from './PostList.astro';
+
+// How many of the most recent posts to show here; the rest live at /blog.
+const RECENT_COUNT = 4;
+
+const posts = (await getCollection('blog', ({ data }) => data.published)).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const recent = posts.slice(0, RECENT_COUNT);
+
+interface Props {
+  index: number;
+}
+const { index } = Astro.props;
+
+// Anchor id + navbar label; index.astro reads this to build the nav in page order.
+export const nav = { id: 'blog', label: 'Blog' };
+---
+
+<section id={nav.id} class="border-t border-rule pt-12 pb-20">
+  <div class="grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
+    <Label index={index} name="Blog" />
+    <div>
+      <h2 class="m-0 mb-7 text-[28px] font-medium tracking-[-0.4px]">
+        My thoughts.
+      </h2>
+      <PostList posts={recent} />
+      {
+        posts.length > 0 && (
+          <a
+            href="/blog"
+            class="ln mt-6 inline-block text-[13px] text-muted transition-colors hover:text-fg"
+          >
+            All posts ({posts.length}) →
+          </a>
+        )
+      }
+    </div>
+  </div>
+</section>

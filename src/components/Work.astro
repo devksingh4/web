@@ -1,0 +1,58 @@
+---
+import Label from './Label.astro';
+import { portfolio } from '../data/portfolio';
+
+interface Props {
+  index: number;
+}
+const { index } = Astro.props;
+
+// Anchor id + navbar label; index.astro reads this to build the nav in page order.
+export const nav = { id: 'work', label: 'Work' };
+---
+
+<section id={nav.id} class="border-t border-rule pt-12 pb-20">
+  <div class="mb-10 grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
+    <Label index={index} name="Selected work" />
+    <h2 class="m-0 text-[28px] leading-[1.15] font-medium tracking-[-0.4px]">
+      A few projects I've worked on.
+    </h2>
+  </div>
+
+  <div class="grid gap-8 md:grid-cols-[160px_1fr]">
+    <div class="hidden md:block"></div>
+    <!-- 1px hairlines between rows via a ruled parent + gap. -->
+    <div class="grid gap-px bg-rule">
+      {
+        portfolio.projects.map((p, i) => (
+          <a
+            id={`work-${i}`}
+            href={p.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-reveal
+            class="group grid grid-cols-1 gap-2 bg-bg px-[18px] py-[22px] transition-colors duration-[250ms] hover:bg-card md:grid-cols-[64px_1fr_220px_24px] md:items-start md:gap-6"
+          >
+            <span class="label-caps md:pt-1">{p.year}</span>
+            <div>
+              <div class="mb-1 text-[18px] font-medium">{p.title}</div>
+              <div class="label-caps mb-2">{p.kind}</div>
+              <p class="m-0 max-w-[520px] text-[14px] text-muted">{p.desc}</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 md:pt-1">
+              {p.stack.map((s) => (
+                <span class="pill">{s}</span>
+              ))}
+            </div>
+            <span
+              class="hidden text-[16px] text-muted transition duration-[250ms] group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-accent md:block md:pt-1"
+              aria-hidden="true"
+            >
+              ↗
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,496 @@
+---
+import { getCollection } from 'astro:content';
+import { portfolio } from '../data/portfolio';
+
+interface Props {
+  nav: { id: string; label: string }[];
+}
+const { nav } = Astro.props;
+
+const { projects, experience, education, skills } = portfolio;
+const { email, github, githubUrl, linkedin, resume, cv } = portfolio.links;
+
+// Published posts (newest first) are indexed so ⌘K can jump straight to any article.
+const posts = (await getCollection('blog', ({ data }) => data.published)).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+type Item = {
+  group: string;
+  label: string;
+  hint: string;
+  action: 'jump' | 'theme' | 'link';
+  target?: string;
+  href?: string;
+  external?: boolean;
+  // Extra search terms (space-separated synonyms) matched but not displayed,
+  // e.g. "CV" surfaces the Resume row.
+  keywords?: string;
+};
+
+// Everything searchable, in default (no-query) display order. Content rows
+// carry `keywords` so e.g. a stack/tool name surfaces its project or skill
+// group. Jump targets point at per-item anchor ids rendered by the sections
+// (see Work/Experience/About) — index-based so they stay in sync with the data.
+const items: Item[] = [
+  // Sections
+  ...nav.map(
+    (n): Item => ({
+      group: 'Go to',
+      label: n.label,
+      hint: `#${n.id}`,
+      action: 'jump',
+      target: `#${n.id}`,
+    })
+  ),
+
+  // Selected work — jump to the exact project row
+  ...projects.map(
+    (p, i): Item => ({
+      group: 'Work',
+      label: p.title,
+      hint: p.year,
+      action: 'jump',
+      target: `#work-${i}`,
+      keywords: `${p.kind} ${p.stack.join(' ')}`,
+    })
+  ),
+
+  // Experience — one row per role; jump to the exact role. Dates are the hint
+  // since titles repeat across roles/companies (e.g. two SWE Intern stints).
+  ...experience.flatMap((e, i) =>
+    e.roles.map(
+      (r, j): Item => ({
+        group: 'Experience',
+        label: `${r.title} · ${e.company}`,
+        hint: r.dates,
+        action: 'jump',
+        target: `#exp-${i}-${j}`,
+        keywords: `${r.keywords ?? ''} ${r.dates} ${r.where} ${r.bullets.join(' ')}`,
+      })
+    )
+  ),
+
+  // Education — one row per program; dates as the hint (a school may list a
+  // BS then an MS), jumping to the exact program.
+  ...education.flatMap((ed, i) =>
+    ed.programs.map(
+      (p, j): Item => ({
+        group: 'Education',
+        label: ed.school,
+        hint: p.dates,
+        action: 'jump',
+        target: `#edu-${i}-${j}`,
+        keywords: `${p.dates} ${ed.where} ${p.degree} ${p.note}`,
+      })
+    )
+  ),
+
+  // Skills — search any tool to land on its group
+  ...skills.map(
+    (g, i): Item => ({
+      group: 'Skills',
+      label: g.label,
+      hint: '→',
+      action: 'jump',
+      target: `#skills-${i}`,
+      keywords: g.items.join(' '),
+    })
+  ),
+
+  // Blog posts
+  ...posts.map(
+    (post): Item => ({
+      group: 'Blog',
+      label: post.data.title,
+      hint: '→',
+      action: 'link',
+      href: `/blog/${post.id}`,
+      keywords: post.data.tags.join(' '),
+    })
+  ),
+
+  {
+    group: 'Theme',
+    label: 'Toggle light / dark',
+    hint: '',
+    action: 'theme',
+    keywords: 'dark mode appearance color scheme',
+  },
+  {
+    group: 'Links',
+    label: `GitHub — ${github}`,
+    hint: '↗',
+    action: 'link',
+    href: githubUrl,
+    external: true,
+    keywords: 'code source repositories',
+  },
+  {
+    group: 'Links',
+    label: `LinkedIn — ${linkedin}`,
+    hint: '↗',
+    action: 'link',
+    href: `https://linkedin.com/in/${linkedin}`,
+    external: true,
+  },
+  {
+    group: 'Links',
+    label: `Email — ${email}`,
+    hint: '',
+    action: 'link',
+    href: `mailto:${email}`,
+    keywords: 'contact mail reach out',
+  },
+  {
+    group: 'Links',
+    label: 'Resume (PDF)',
+    hint: '↗',
+    action: 'link',
+    href: resume,
+    external: true,
+  },
+  {
+    group: 'Links',
+    label: 'Curriculum Vitae (PDF)',
+    hint: '↗',
+    action: 'link',
+    href: cv,
+    external: true,
+    keywords: 'Curriculum Vitae CV',
+  },
+];
+---
+
+<div
+  data-cmdk
+  class="fixed inset-0 z-[100] hidden items-start justify-center bg-black/30 px-4 pt-[140px] backdrop-blur-[4px] dark:bg-black/60"
+>
+  <div
+    data-cmdk-modal
+    role="dialog"
+    aria-modal="true"
+    aria-label="Command palette"
+    class="flex w-[560px] max-w-[85vw] flex-col overflow-hidden rounded-[10px] border border-rule bg-bg text-fg shadow-2xl"
+  >
+    <div class="flex items-center gap-2.5 border-b border-rule px-4 py-3.5">
+      <span class="text-[13px] tracking-[0.5px] text-muted">⌘K</span>
+      <input
+        data-cmdk-input
+        type="text"
+        placeholder="Search the site — work, experience, posts…"
+        aria-label="Search commands"
+        autocomplete="off"
+        class="min-w-0 flex-1 bg-transparent text-[15px] outline-none placeholder:text-muted"
+      />
+    </div>
+
+    <div data-cmdk-list class="max-h-[340px] overflow-y-auto p-1.5">
+      {
+        items.map((it) => (
+          <button
+            type="button"
+            data-cmd-item
+            data-action={it.action}
+            data-target={it.target}
+            data-href={it.href}
+            data-external={it.external ? 'true' : undefined}
+            data-hint={it.hint}
+            data-keywords={it.keywords}
+            data-group={it.group}
+            data-label={it.label}
+            class="cmd-row flex w-full cursor-pointer items-start justify-between gap-2.5 rounded-md px-3 py-2.5 text-left"
+          >
+            <span class="flex min-w-0 flex-1 items-baseline gap-2.5">
+              <span class="min-w-14 shrink-0 text-[11px] tracking-[1px] text-muted uppercase">
+                {it.group}
+              </span>
+              <span class="flex min-w-0 flex-1 flex-col gap-0.5">
+                <span data-cmdk-label class="min-w-0 truncate text-[14px]">
+                  {it.label}
+                </span>
+                <span
+                  data-cmdk-context
+                  class="hidden min-w-0 truncate text-[12px] text-muted"
+                />
+              </span>
+            </span>
+            <span data-cmdk-hint class="shrink-0 pl-2 text-[12px] text-muted">
+              {it.hint}
+            </span>
+          </button>
+        ))
+      }
+      <div
+        data-cmdk-empty
+        class="hidden px-3.5 py-[18px] text-[14px] text-muted"
+      >
+        No matches.
+      </div>
+    </div>
+
+    <div
+      class="flex gap-3.5 border-t border-rule px-3.5 py-2 text-[11px] text-muted"
+    >
+      <span>↑↓ navigate</span>
+      <span>↵ select</span>
+      <span>esc close</span>
+      <span data-cmdk-count class="ml-auto text-accent"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { smoothScrollTo } from '../scripts/smoothScroll';
+
+  const overlay = document.querySelector<HTMLElement>('[data-cmdk]');
+  const input = document.querySelector<HTMLInputElement>('[data-cmdk-input]');
+  const empty = document.querySelector<HTMLElement>('[data-cmdk-empty]');
+  const count = document.querySelector<HTMLElement>('[data-cmdk-count]');
+  const list = document.querySelector<HTMLElement>('[data-cmdk-list]');
+  const rows = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-cmd-item]')
+  );
+
+  if (overlay && input) {
+    let active = 0;
+
+    // Visible rows in current DOM order. filter() reorders the DOM by
+    // relevance, so this must read the DOM rather than the original `rows`.
+    const visible = () =>
+      Array.from(
+        list!.querySelectorAll<HTMLButtonElement>('[data-cmd-item]')
+      ).filter((r) => !r.classList.contains('hidden'));
+
+    function render() {
+      const vis = visible();
+      active = Math.max(0, Math.min(active, vis.length - 1));
+      rows.forEach((r) => {
+        const hintEl = r.querySelector<HTMLElement>('[data-cmdk-hint]');
+        if (hintEl) hintEl.textContent = r.dataset.hint || '';
+        r.classList.remove('cmd-active');
+      });
+      const current = vis[active];
+      if (current) {
+        current.classList.add('cmd-active');
+        if (!current.dataset.hint) {
+          const hintEl = current.querySelector<HTMLElement>('[data-cmdk-hint]');
+          if (hintEl) hintEl.textContent = '↵';
+        }
+        current.scrollIntoView({ block: 'nearest' });
+      }
+      if (empty) empty.classList.toggle('hidden', vis.length > 0);
+      if (count) count.textContent = `${vis.length} results`;
+    }
+
+    // Relevance score: label-start (3) > label-contains (2) > keyword/group (1).
+    // 0 means no match, so the row is hidden.
+    function score(row: HTMLButtonElement, needle: string) {
+      const label = (row.dataset.label || '').toLowerCase();
+      const keywords = (row.dataset.keywords || '').toLowerCase();
+      const group = (row.dataset.group || '').toLowerCase();
+      if (label.startsWith(needle)) return 3;
+      if (label.includes(needle)) return 2;
+      if (keywords.includes(needle) || group.includes(needle)) return 1;
+      return 0;
+    }
+
+    // Render `text` into `el`, tinting the first occurrence of `needle`. When
+    // `windowed`, the text is trimmed to a snippet around the match (with
+    // ellipses) so the match stays visible in a long string. Returns whether
+    // `needle` matched.
+    function highlight(
+      el: HTMLElement,
+      text: string,
+      needle: string,
+      windowed: boolean
+    ) {
+      const idx = needle ? text.toLowerCase().indexOf(needle) : -1;
+      if (idx === -1) {
+        el.textContent = text;
+        return false;
+      }
+      let start = 0;
+      let end = text.length;
+      if (windowed) {
+        start = Math.max(0, idx - 12);
+        end = Math.min(text.length, idx + needle.length + 40);
+        // Snap to word boundaries so we don't slice through words.
+        if (start > 0) {
+          const sp = text.indexOf(' ', start);
+          if (sp !== -1 && sp < idx) start = sp + 1;
+        }
+        if (end < text.length) {
+          const sp = text.lastIndexOf(' ', end);
+          if (sp !== -1 && sp > idx + needle.length) end = sp;
+        }
+      }
+      const matchEl = document.createElement('span');
+      matchEl.className = 'text-accent';
+      matchEl.textContent = text.slice(idx, idx + needle.length);
+      el.replaceChildren(
+        document.createTextNode(
+          (start > 0 ? '… ' : '') + text.slice(start, idx)
+        ),
+        matchEl,
+        document.createTextNode(
+          text.slice(idx + needle.length, end) + (end < text.length ? ' …' : '')
+        )
+      );
+      return true;
+    }
+
+    // Tint the match inside the title. If a long title clips the match off the
+    // visible edge, re-render it as a window around the match so it shows.
+    function setLabel(row: HTMLButtonElement, needle: string) {
+      const el = row.querySelector<HTMLElement>('[data-cmdk-label]');
+      if (!el) return;
+      const text = row.dataset.label || '';
+      if (!highlight(el, text, needle, false)) return;
+      const mark = el.querySelector('span');
+      if (!mark) return;
+      const box = el.getBoundingClientRect();
+      const hit = mark.getBoundingClientRect();
+      if (hit.right > box.right + 0.5 || hit.left < box.left - 0.5) {
+        highlight(el, text, needle, true);
+      }
+    }
+
+    // Below the title, show a snippet of the hidden keyword text around the
+    // match (e.g. a project's stack, an experience bullet) so it's clear why a
+    // row surfaced. Pass an empty needle to clear the line.
+    function setContext(row: HTMLButtonElement, needle: string) {
+      const el = row.querySelector<HTMLElement>('[data-cmdk-context]');
+      if (!el) return;
+      const matched = needle
+        ? highlight(el, row.dataset.keywords || '', needle, true)
+        : false;
+      el.classList.toggle('hidden', !matched);
+      if (!matched) el.textContent = '';
+    }
+
+    function filter() {
+      const needle = input!.value.trim().toLowerCase();
+      if (needle === '') {
+        // Restore the default grouped order, show everything, clear contexts.
+        rows.forEach((r) => {
+          r.classList.remove('hidden');
+          setLabel(r, '');
+          setContext(r, '');
+          list!.appendChild(r);
+        });
+      } else {
+        // Sort by score (then original order) and reorder the DOM so the best
+        // matches float to the top; hide non-matches. A score of 1 is a
+        // keyword/group-only hit, so show where it matched beneath the label.
+        rows
+          .map((r, i) => ({ r, i, s: score(r, needle) }))
+          .sort((a, b) => b.s - a.s || a.i - b.i)
+          .forEach(({ r, s }) => {
+            r.classList.toggle('hidden', s === 0);
+            setLabel(r, needle);
+            setContext(r, s === 1 ? needle : '');
+            list!.appendChild(r);
+          });
+      }
+      active = 0;
+      render();
+    }
+
+    function open() {
+      overlay!.classList.remove('hidden');
+      overlay!.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+      input!.value = '';
+      filter();
+      setTimeout(() => input!.focus(), 30);
+    }
+
+    function close() {
+      overlay!.classList.add('hidden');
+      overlay!.classList.remove('flex');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    function isOpen() {
+      return !overlay!.classList.contains('hidden');
+    }
+
+    // Briefly ring the jump target so it's obvious where you landed.
+    function flash(selector: string) {
+      const el = document.querySelector<HTMLElement>(selector);
+      if (!el) return;
+      el.classList.remove('cmdk-flash');
+      void el.offsetWidth; // reflow so the animation restarts on re-trigger
+      el.classList.add('cmdk-flash');
+      el.addEventListener(
+        'animationend',
+        () => el.classList.remove('cmdk-flash'),
+        { once: true }
+      );
+    }
+
+    function activate(row: HTMLButtonElement | undefined) {
+      if (!row) return;
+      const { action, target, href, external } = row.dataset;
+      close();
+      if (action === 'jump' && target) {
+        if (document.querySelector(target)) {
+          smoothScrollTo(target);
+          flash(target);
+        } else {
+          // Target lives on the homepage (we're on a sub-page) — go there.
+          window.location.href = `/${target}`;
+        }
+      } else if (action === 'theme') {
+        document.querySelector<HTMLElement>('[data-theme-toggle]')?.click();
+      } else if (action === 'link' && href) {
+        if (external) window.open(href, '_blank', 'noopener');
+        else window.location.href = href;
+      }
+    }
+
+    input.addEventListener('input', filter);
+    input.addEventListener('keydown', (e) => {
+      const vis = visible();
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        active = Math.min(vis.length - 1, active + 1);
+        render();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = Math.max(0, active - 1);
+        render();
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        activate(vis[active]);
+      } else if (e.key === 'Escape') {
+        close();
+      }
+    });
+
+    rows.forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        active = visible().indexOf(row);
+        render();
+      });
+      row.addEventListener('click', () => activate(row));
+    });
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+
+    document.querySelector('[data-cmdk-open]')?.addEventListener('click', open);
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (isOpen()) close();
+        else open();
+      } else if (e.key === 'Escape' && isOpen()) {
+        close();
+      }
+    });
+  }
+</script>

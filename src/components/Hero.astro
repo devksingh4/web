@@ -1,0 +1,63 @@
+---
+import Label from './Label.astro';
+import BusinessCard from './BusinessCard.astro';
+import { portfolio } from '../data/portfolio';
+
+const { resume } = portfolio.links;
+
+interface Props {
+  index: number;
+}
+const { index } = Astro.props;
+
+// Anchor id + navbar label; index.astro reads this to build the nav in page order.
+export const nav = { id: 'about', label: 'About' };
+---
+
+<section id={nav.id} class="pt-16 pb-20 sm:pt-24">
+  <div class="grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
+    <Label index={index} name="Intro" />
+    <div
+      class="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12"
+    >
+      <div>
+        <h1
+          class="m-0 max-w-[640px] text-[40px] leading-[1.05] font-medium tracking-[-1.2px] text-pretty sm:text-[56px]"
+        >
+          {
+            portfolio.heroHeadline.map((line, i) => (
+              <Fragment>
+                {i > 0 && <br />}
+                {line.map((seg) =>
+                  seg.muted ? (
+                    <span class="text-muted">{seg.text}</span>
+                  ) : (
+                    <Fragment>{seg.text}</Fragment>
+                  )
+                )}
+              </Fragment>
+            ))
+          }
+        </h1>
+        <p class="mt-8 max-w-[560px] text-[17px] leading-relaxed text-fg/75">
+          {portfolio.blurb}
+        </p>
+        <div class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-[13px] text-muted">
+          {portfolio.meta.map((m) => <span>· {m}</span>)}
+        </div>
+        <div class="mt-8">
+          <a
+            href={resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 border border-rule px-4 py-2 text-[14px] transition-colors hover:border-fg/30 hover:text-accent"
+          >
+            Resume <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <BusinessCard />
+    </div>
+  </div>
+</section>

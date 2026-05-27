@@ -1,0 +1,94 @@
+---
+import Label from './Label.astro';
+import { portfolio } from '../data/portfolio';
+
+interface Props {
+  index: number;
+}
+const { index } = Astro.props;
+
+// Anchor id + navbar label; index.astro reads this to build the nav in page order.
+export const nav = { id: 'experience', label: 'Experience' };
+---
+
+<section id={nav.id} class="border-t border-rule pt-12 pb-20">
+  <div class="grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
+    <Label index={index} name="Experience" />
+    <div class="grid gap-9">
+      {
+        portfolio.experience.map((e, i) => (
+          <div
+            data-reveal
+            class:list={['grid gap-5', i > 0 && 'border-t border-rule pt-7']}
+          >
+            <a
+              href={e.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ln w-fit self-start text-[16px] font-medium text-accent"
+            >
+              {e.company}
+            </a>
+            <div class="grid gap-6">
+              {e.roles.map((r, j) => (
+                <div
+                  id={`exp-${i}-${j}`}
+                  class="grid gap-4 md:grid-cols-2 md:gap-6"
+                >
+                  <div>
+                    <div class="text-[17px] font-medium">{r.title}</div>
+                    <div class="label-caps mt-1.5">
+                      {[r.where, r.dates].filter(Boolean).join(' · ')}
+                    </div>
+                  </div>
+                  {r.bullets.length > 0 && (
+                    <ul class="m-0 grid list-disc gap-2 pl-[18px] text-[14px] text-muted">
+                      {r.bullets.map((b) => (
+                        <li>{b}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+
+      <div data-reveal class="grid gap-6 border-t border-rule pt-7">
+        <div class="label-caps">Education</div>
+        {
+          portfolio.education.map((ed, i) => (
+            <div class="grid gap-3">
+              <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <a
+                  href={ed.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-[16px] font-medium transition-colors hover:text-accent"
+                >
+                  {ed.school}
+                </a>
+                {ed.where && <span class="label-caps">{ed.where}</span>}
+              </div>
+              <div class="grid gap-4">
+                {ed.programs.map((p, j) => (
+                  <div
+                    id={`edu-${i}-${j}`}
+                    class="grid gap-4 md:grid-cols-2 md:gap-6"
+                  >
+                    <div class="label-caps">{p.dates}</div>
+                    <div class="text-[14px] text-muted">
+                      <div class="text-fg">{p.degree}</div>
+                      {p.note && <div class="mt-1">{p.note}</div>}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+---
+// Indexed small-caps section label, e.g. "01 — Intro". `index` is the section's
+// 1-based position; it's zero-padded here so callers just pass a number.
+interface Props {
+  index: number;
+  name: string;
+}
+const { index, name } = Astro.props;
+const num = String(index).padStart(2, '0');
+---
+
+<div class="label-caps">{num} — {name}</div>

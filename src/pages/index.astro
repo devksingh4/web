@@ -1,109 +1,102 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import { Icon } from 'astro-icon/components';
-import { Image } from 'astro:assets';
-import { portfolio } from '../data/portfolio';
-import profilePic from '../assets/me.webp';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Work from '../components/Work.astro';
+import Blog from '../components/Blog.astro';
+import Experience from '../components/Experience.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import CommandPalette from '../components/CommandPalette.astro';
+import { siteNav } from '../data/siteNav';
 
-const currentExperience = portfolio.experience.flatMap((exp) =>
-  exp.positions
-    .filter((p) => p.current || p.incoming)
-    .map((p) => ({ ...p, company: exp.company }))
-);
-
-const currentEducation = portfolio.education.flatMap((edu) =>
-  edu.positions
-    .filter((p) => p.current)
-    .map((p) => ({ ...p, company: edu.company }))
-);
+// Reorder this list and the section numbers (01, 02, …) follow automatically.
+// The navbar order is shared with sub-pages via `siteNav` — keep its ids in
+// sync with the section ids (Hero is `about`, Work `work`, …).
+const sections = [Hero, About, Experience, Work, Blog];
 ---
 
-<PageLayout title="Dev Singh">
-  <div class="text-center space-y-4">
-    <Image
-      src={profilePic}
-      alt={portfolio.name}
-      width={160}
-      height={160}
-      densities={[1, 2, 3]}
-      class="rounded-full border-4 border-white/20 mx-auto"
-    />
-    <div>
-      <h1 class="text-3xl font-bold mb-2">{portfolio.greeting}</h1>
-      <p class="text-white/90 leading-relaxed max-w-lg mx-auto">
-        {portfolio.blurb}
-      </p>
-    </div>
-  </div>
+<Layout title="Dev Singh — Software Engineer">
+  <main class="mx-auto max-w-[1536px] px-6 pt-16 pb-24 sm:px-12 lg:px-[88px]">
+    <SiteHeader nav={siteNav} />
+    {sections.map((Section, i) => <Section index={i + 1} />)}
+    <SiteFooter />
+  </main>
+  <CommandPalette nav={siteNav} />
+</Layout>
 
-  {
-    (currentExperience.length > 0 || currentEducation.length > 0) && (
-      <div class="bg-white/5 rounded-lg p-4 space-y-3">
-        <h3 class="font-semibold text-xl">Current Activity</h3>
-        <div class="flex flex-col sm:flex-row sm:flex-wrap gap-2">
-          {currentExperience.map((pos) => (
-            <div class="flex items-center gap-2">
-              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold transition-colors bg-blue-600/20 text-blue-200 border border-blue-400/20 hover:bg-blue-600/90">
-                <Icon name="lucide:building-2" class="w-3 h-3" />
-                {pos.incoming && 'Incoming'} {pos.title}
-              </span>
-              <span class="text-sm text-white/70">
-                @ {pos.company} ({pos.location})
-              </span>
-            </div>
-          ))}
-          {currentEducation.map((pos) => (
-            <div class="flex items-center gap-2">
-              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold transition-colors bg-purple-600/20 text-purple-200 border border-purple-400/20 hover:bg-purple-600/90">
-                <Icon name="lucide:graduation-cap" class="w-3 h-3" />
-                {pos.title}
-              </span>
-              <span class="text-sm text-white/70">@ {pos.company}</span>
-            </div>
-          ))}
-        </div>
-        <p class="text-sm text-white/70">
-          Also check out{' '}
-          <a href="/background" class="text-blue-400 hover:underline">
-            my background
-          </a>
-          !
-        </p>
-      </div>
-    )
+<script>
+  import { smoothScrollTo } from '../scripts/smoothScroll';
+  import { initReveal } from '../scripts/reveal';
+
+  const navLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('[data-nav][href^="#"]')
+  );
+  const sections = Array.from(
+    document.querySelectorAll<HTMLElement>('main section[id]')
+  );
+
+  // Shared so the click handler and the scroll spy don't fight: the spy pauses
+  // briefly after a click-scroll, and both track the last hash written.
+  let spyPausedUntil = 0;
+  let currentHash = location.hash;
+
+  // Mark the nav link for `hash` (e.g. '#work') as the current section.
+  function highlight(hash: string) {
+    navLinks.forEach((l) => {
+      const on = l.getAttribute('href') === hash;
+      l.classList.toggle('text-accent', on);
+      if (on) l.setAttribute('aria-current', 'true');
+      else l.removeAttribute('aria-current');
+    });
   }
 
-  <div class="flex w-full flex-col sm:flex-row justify-center gap-4 pt-4">
-    <a
-      href={`https://github.com/${portfolio.links.github}`}
-      target="_blank"
-      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
-    >
-      <Icon name="lucide:github" class="w-4 h-4" />
-      GitHub
-    </a>
-    <a
-      href={`https://linkedin.com/in/${portfolio.links.linkedin}`}
-      target="_blank"
-      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
-    >
-      <Icon name="lucide:linkedin" class="w-4 h-4" />
-      LinkedIn
-    </a>
-    <a
-      href={`mailto:${portfolio.links.email}`}
-      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors text-sm"
-    >
-      <Icon name="lucide:mail" class="w-4 h-4" />
-      Email
-    </a>
-    <a
-      href={portfolio.links.resume}
-      target="_blank"
-      class="w-full sm:w-auto flex justify-center items-center gap-2 px-4 py-2 bg-white hover:bg-white/90 rounded-lg transition-colors text-sm text-black font-medium"
-    >
-      <Icon name="lucide:file-text" class="w-4 h-4" />
-      Resume
-    </a>
-  </div>
-</PageLayout>
+  // Anchor nav: intercept in-page links and scroll smoothly.
+  navLinks.forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href') || '';
+      e.preventDefault();
+      smoothScrollTo(href);
+      history.replaceState(null, '', href);
+      currentHash = href;
+      highlight(href);
+      spyPausedUntil = Date.now() + 800;
+    });
+  });
+
+  // Scroll spy: reflect the section at the top of the viewport in the URL hash
+  // (replaceState — no history entries) and highlight its nav link. URL writes
+  // happen on scroll only, so a fresh `/` or deep link is left alone until you
+  // move; the highlight is synced once up front too.
+  if (sections.length > 0) {
+    const sync = (writeUrl: boolean) => {
+      let active = sections[0];
+      for (const sec of sections) {
+        if (sec.getBoundingClientRect().top <= 80) active = sec;
+      }
+      const hash = `#${active.id}`;
+      highlight(hash);
+      if (writeUrl && hash !== currentHash) {
+        currentHash = hash;
+        history.replaceState(null, '', hash);
+      }
+    };
+    sync(false);
+    let ticking = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          ticking = false;
+          if (Date.now() < spyPausedUntil) return;
+          sync(true);
+        });
+      },
+      { passive: true }
+    );
+  }
+
+  initReveal();
+</script>

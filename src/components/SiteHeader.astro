@@ -1,0 +1,67 @@
+---
+import { portfolio } from '../data/portfolio';
+import type { NavItem } from '../data/siteNav';
+
+interface Props {
+  nav: NavItem[];
+  /** Prefix for nav hrefs: '' on the homepage (in-page `#id`), '/' on sub-pages (`/#id`). */
+  base?: string;
+  /** Section id to highlight as the current location (e.g. 'blog' on blog pages). */
+  active?: string;
+}
+const { nav, base = '', active } = Astro.props;
+
+// On sub-pages the brand links home; on the homepage it's just the wordmark.
+const Brand = base ? 'a' : 'div';
+const brandClass = base
+  ? 'flex w-fit items-baseline gap-4 transition-colors hover:text-accent'
+  : 'flex items-baseline gap-4';
+---
+
+<header
+  class="sticky top-0 z-40 grid grid-cols-[1fr_auto] items-baseline gap-4 border-b border-rule bg-bg py-[18px]"
+>
+  <Brand href={base || undefined} class={brandClass}>
+    <span
+      class="inline-block h-2 w-2 -translate-y-px rounded-full bg-accent"
+      aria-hidden="true"></span>
+    <span class="text-[14px] font-medium">{portfolio.name}</span>
+    <span class="label-caps hidden sm:block">{portfolio.role}</span>
+  </Brand>
+
+  <nav class="flex items-baseline gap-[22px] text-[13px]">
+    <div class="hidden items-baseline gap-[22px] md:flex">
+      {
+        nav.map((n) => (
+          <a
+            href={`${base}#${n.id}`}
+            data-nav
+            aria-current={n.id === active ? 'page' : undefined}
+            class:list={[
+              'cursor-pointer transition-colors duration-200 hover:text-accent',
+              n.id === active && 'text-accent',
+            ]}
+          >
+            {n.label}
+          </a>
+        ))
+      }
+    </div>
+    <button
+      type="button"
+      data-theme-toggle
+      class="cursor-pointer border border-rule px-[9px] py-[3px] text-[11px] uppercase tracking-[1px] transition-colors hover:border-fg/30"
+    >
+      <span class="dark:hidden">Dark</span>
+      <span class="hidden dark:inline">Light</span>
+    </button>
+    <button
+      type="button"
+      data-cmdk-open
+      title="Command palette"
+      class="cursor-pointer border border-rule px-[9px] py-[3px] text-[11px] tracking-[1px] text-muted transition-colors hover:text-fg"
+    >
+      ⌘K
+    </button>
+  </nav>
+</header>

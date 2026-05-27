@@ -1,0 +1,44 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+const { posts } = Astro.props;
+
+function shortDate(date: string): string {
+  const d = new Date(date);
+  return isNaN(d.getTime())
+    ? date
+    : d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
+function readTime(body: string | undefined): string {
+  const words = (body ?? '').trim().split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min`;
+}
+---
+
+<div>
+  {
+    posts.map((post) => (
+      <a
+        href={`/blog/${post.id}`}
+        data-reveal
+        class="group flex flex-col gap-1 border-b border-rule px-1 py-[18px] transition-colors duration-[250ms] hover:bg-card md:grid md:grid-cols-[120px_1fr_90px_60px] md:items-baseline md:gap-4"
+      >
+        <span class="label-caps">{shortDate(post.data.date)}</span>
+        <span class="flex flex-col gap-1">
+          <span class="text-[16px]">{post.data.title}</span>
+          <span class="text-[13px] leading-snug text-muted">
+            {post.data.excerpt}
+          </span>
+        </span>
+        <span class="label-caps !text-accent">{post.data.tags[0]}</span>
+        <span class="text-[12px] text-muted md:text-right">
+          {readTime(post.body)}
+        </span>
+      </a>
+    ))
+  }
+</div>
