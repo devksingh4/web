@@ -30,6 +30,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@iconify-json/lucide": "^1.2.106",
     "astro-compress": "^2.4.1",
+    "astro-icon": "^1.1.5",
     "geist": "^1.7.0"
   },
   "devDependencies": {
@@ -40,7 +41,6 @@
     "@typescript-eslint/parser": "^8.59.3",
     "astro": "6.3.1",
     "astro-eslint-parser": "^1.4.0",
-    "astro-icon": "^1.1.5",
     "eslint": "^10.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.7.0",

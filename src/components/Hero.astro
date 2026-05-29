@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import Label from './Label.astro';
 import BusinessCard from './BusinessCard.astro';
 import { portfolio } from '../data/portfolio';
@@ -53,21 +54,12 @@ export const nav = { id: 'about', label: 'About' };
             class="inline-flex items-center gap-1.5 border border-rule px-4 py-2 text-[14px] transition-colors hover:border-fg/30 hover:text-accent"
           >
             Resume
-            <svg
-              viewBox="0 0 12 12"
-              width="11"
-              height="11"
+            <Icon
+              name="lucide:arrow-up-right"
               class="inline-block align-[-1px]"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              size={13}
               aria-hidden="true"
-            >
-              <path d="M3.5 8.5L8.5 3.5"></path>
-              <path d="M4.5 3.5L8.5 3.5L8.5 7.5"></path>
-            </svg>
+            />
           </a>
         </div>
       </div>

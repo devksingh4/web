@@ -15,8 +15,10 @@ yarn format:fix   # prettier + eslint (auto-fix)
 **After every change, run:**
 
 ```bash
-yarn typecheck && yarn format:fix
+npx lint-staged --allow-empty
 ```
+
+This will help ensure that the code remains formatted.
 
 CI runs `yarn typecheck` and `yarn format:check` on every push to master. Builds that fail either check won't deploy.
 
@@ -84,7 +86,6 @@ All homepage copy is data-driven from `src/data/portfolio.ts` — edit content t
 - **Astro 6** — static output (`output: 'static'`), content collections via `src/content.config.ts`
 - **Tailwind CSS v4** via `@tailwindcss/vite` Vite plugin (not the PostCSS plugin); design tokens in `global.css` via `@theme`
 - **MDX** via `@astrojs/mdx`
-- **No icon library in use** — the design uses Unicode glyphs (`↗`, `·`) and a CSS accent dot (`astro-icon` is still installed but unused)
 
 ## Formatting Rules
 
