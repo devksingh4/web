@@ -11,9 +11,9 @@ const { index } = Astro.props;
 export const nav = { id: 'work', label: 'Work' };
 ---
 
-<section id={nav.id} class="border-t border-rule pt-12 pb-20">
+<section id={nav.id} class="border-t border-rule pt-8 pb-12 sm:pt-12 sm:pb-20">
   <div class="mb-10 grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
-    <Label index={index} name="Selected work" />
+    <Label index={index} name="Projects" />
     <h2 class="m-0 text-[28px] leading-[1.15] font-medium tracking-[-0.4px]">
       A few projects I've worked on.
     </h2>
@@ -26,7 +26,7 @@ export const nav = { id: 'work', label: 'Work' };
       {
         portfolio.projects.map((p, i) => (
           <a
-            id={`work-${i}`}
+            id={`projects-${i}`}
             href={p.href}
             target="_blank"
             rel="noopener noreferrer"
@@ -45,10 +45,22 @@ export const nav = { id: 'work', label: 'Work' };
               ))}
             </div>
             <span
-              class="hidden text-[16px] text-muted transition duration-[250ms] group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-accent md:block md:pt-1"
+              class="hidden text-muted transition duration-[250ms] group-hover:translate-x-[3px] group-hover:-translate-y-[3px] group-hover:text-accent md:block md:pt-1.5"
               aria-hidden="true"
             >
-              ↗
+              <svg
+                viewBox="0 0 14 14"
+                width="14"
+                height="14"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M4 10L10 4" />
+                <path d="M5 4L10 4L10 9" />
+              </svg>
             </span>
           </a>
         ))

@@ -8,7 +8,7 @@ interface Props {
 const { index } = Astro.props;
 ---
 
-<section class="border-t border-rule pt-12 pb-20">
+<section class="border-t border-rule pt-8 pb-12 sm:pt-12 sm:pb-20">
   <div class="grid gap-8 md:grid-cols-[160px_1fr_1fr]" data-reveal>
     <Label index={index} name="About" />
     <p class="m-0 text-[15px] leading-relaxed">{portfolio.longBio}</p>

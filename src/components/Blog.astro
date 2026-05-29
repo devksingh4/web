@@ -20,7 +20,7 @@ const { index } = Astro.props;
 export const nav = { id: 'blog', label: 'Blog' };
 ---
 
-<section id={nav.id} class="border-t border-rule pt-12 pb-20">
+<section id={nav.id} class="border-t border-rule pt-8 pb-12 sm:pt-12 sm:pb-20">
   <div class="grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
     <Label index={index} name="Blog" />
     <div>

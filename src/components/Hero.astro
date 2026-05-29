@@ -14,7 +14,7 @@ const { index } = Astro.props;
 export const nav = { id: 'about', label: 'About' };
 ---
 
-<section id={nav.id} class="pt-16 pb-20 sm:pt-24">
+<section id={nav.id} class="pt-8 pb-12 sm:pt-24 sm:pb-20">
   <div class="grid gap-8 md:grid-cols-[160px_1fr]" data-reveal>
     <Label index={index} name="Intro" />
     <div
@@ -52,7 +52,22 @@ export const nav = { id: 'about', label: 'About' };
             rel="noopener noreferrer"
             class="inline-flex items-center gap-1.5 border border-rule px-4 py-2 text-[14px] transition-colors hover:border-fg/30 hover:text-accent"
           >
-            Resume <span aria-hidden="true">↗</span>
+            Resume
+            <svg
+              viewBox="0 0 12 12"
+              width="11"
+              height="11"
+              class="inline-block align-[-1px]"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3.5 8.5L8.5 3.5"></path>
+              <path d="M4.5 3.5L8.5 3.5L8.5 7.5"></path>
+            </svg>
           </a>
         </div>
       </div>

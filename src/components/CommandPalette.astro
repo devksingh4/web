@@ -18,6 +18,7 @@ const posts = (await getCollection('blog', ({ data }) => data.published)).sort(
 type Item = {
   group: string;
   label: string;
+  /** A token ('external', 'next', 'enter') renders as an SVG icon; anything else is text. */
   hint: string;
   action: 'jump' | 'theme' | 'link';
   target?: string;
@@ -27,6 +28,27 @@ type Item = {
   // e.g. "CV" surfaces the Resume row.
   keywords?: string;
 };
+
+// Cross-platform SVG icons used for row hints — kept identical client and
+// server side (see HINT_ICONS in the script below) so the active-row swap and
+// the initial render look the same. The viewBox/stroke is shared so they line
+// up visually as a set.
+const SVG_ARROW_NE =
+  '<svg viewBox="0 0 12 12" width="11" height="11" class="inline-block align-[-1px]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5L8.5 3.5"/><path d="M4.5 3.5L8.5 3.5L8.5 7.5"/></svg>';
+const SVG_ARROW_RIGHT =
+  '<svg viewBox="0 0 12 12" width="11" height="11" class="inline-block align-[-1px]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6L9.5 6"/><path d="M6 2.5L9.5 6L6 9.5"/></svg>';
+const SVG_ENTER =
+  '<svg viewBox="0 0 12 12" width="11" height="11" class="inline-block align-[-1px]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3L9.5 6.5L3.5 6.5"/><path d="M5.5 4.5L3.5 6.5L5.5 8.5"/></svg>';
+
+function renderHint(hint: string): string {
+  if (hint === 'external') return SVG_ARROW_NE;
+  if (hint === 'next') return SVG_ARROW_RIGHT;
+  // Plain text — escape for safe set:html.
+  return hint
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
 
 // Everything searchable, in default (no-query) display order. Content rows
 // carry `keywords` so e.g. a stack/tool name surfaces its project or skill
@@ -47,12 +69,12 @@ const items: Item[] = [
   // Selected work — jump to the exact project row
   ...projects.map(
     (p, i): Item => ({
-      group: 'Work',
+      group: 'Projects',
       label: p.title,
       hint: p.year,
       action: 'jump',
-      target: `#work-${i}`,
-      keywords: `${p.kind} ${p.stack.join(' ')}`,
+      target: `#projects-${i}`,
+      keywords: `${p.kind} ${p.stack.join(' ')} ${p.desc}`,
     })
   ),
 
@@ -91,7 +113,7 @@ const items: Item[] = [
     (g, i): Item => ({
       group: 'Skills',
       label: g.label,
-      hint: '→',
+      hint: 'next',
       action: 'jump',
       target: `#skills-${i}`,
       keywords: g.items.join(' '),
@@ -103,7 +125,7 @@ const items: Item[] = [
     (post): Item => ({
       group: 'Blog',
       label: post.data.title,
-      hint: '→',
+      hint: 'next',
       action: 'link',
       href: `/blog/${post.id}`,
       keywords: post.data.tags.join(' '),
@@ -120,7 +142,7 @@ const items: Item[] = [
   {
     group: 'Links',
     label: `GitHub — ${github}`,
-    hint: '↗',
+    hint: 'external',
     action: 'link',
     href: githubUrl,
     external: true,
@@ -129,7 +151,7 @@ const items: Item[] = [
   {
     group: 'Links',
     label: `LinkedIn — ${linkedin}`,
-    hint: '↗',
+    hint: 'external',
     action: 'link',
     href: `https://linkedin.com/in/${linkedin}`,
     external: true,
@@ -145,7 +167,7 @@ const items: Item[] = [
   {
     group: 'Links',
     label: 'Resume (PDF)',
-    hint: '↗',
+    hint: 'external',
     action: 'link',
     href: resume,
     external: true,
@@ -153,7 +175,7 @@ const items: Item[] = [
   {
     group: 'Links',
     label: 'Curriculum Vitae (PDF)',
-    hint: '↗',
+    hint: 'external',
     action: 'link',
     href: cv,
     external: true,
@@ -174,7 +196,9 @@ const items: Item[] = [
     class="flex w-[560px] max-w-[85vw] flex-col overflow-hidden rounded-[10px] border border-rule bg-bg text-fg shadow-2xl"
   >
     <div class="flex items-center gap-2.5 border-b border-rule px-4 py-3.5">
-      <span class="text-[13px] tracking-[0.5px] text-muted">⌘K</span>
+      <span data-cmdk-shortcut class="text-[13px] tracking-[0.5px] text-muted"
+        >⌘K</span
+      >
       <input
         data-cmdk-input
         type="text"
@@ -215,9 +239,11 @@ const items: Item[] = [
                 />
               </span>
             </span>
-            <span data-cmdk-hint class="shrink-0 pl-2 text-[12px] text-muted">
-              {it.hint}
-            </span>
+            <span
+              data-cmdk-hint
+              class="shrink-0 pl-2 text-[12px] text-muted"
+              set:html={renderHint(it.hint)}
+            />
           </button>
         ))
       }
@@ -230,10 +256,30 @@ const items: Item[] = [
     </div>
 
     <div
-      class="flex gap-3.5 border-t border-rule px-3.5 py-2 text-[11px] text-muted"
+      class="flex items-center gap-3.5 border-t border-rule px-3.5 py-2 text-[11px] text-muted"
     >
-      <span>↑↓ navigate</span>
-      <span>↵ select</span>
+      <span class="inline-flex items-center gap-1">
+        <svg
+          viewBox="0 0 12 12"
+          width="11"
+          height="11"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M6 2.5L6 9.5"></path>
+          <path d="M3.5 5L6 2.5L8.5 5"></path>
+          <path d="M3.5 7L6 9.5L8.5 7"></path>
+        </svg>
+        navigate
+      </span>
+      <span class="inline-flex items-center gap-1">
+        <Fragment set:html={SVG_ENTER} />
+        select
+      </span>
       <span>esc close</span>
       <span data-cmdk-count class="ml-auto text-accent"></span>
     </div>
@@ -252,6 +298,40 @@ const items: Item[] = [
     document.querySelectorAll<HTMLButtonElement>('[data-cmd-item]')
   );
 
+  // Enter-key indicator shown on the active row — kept in sync with the
+  // server-rendered SVG_ENTER constant above so it visually matches the
+  // ↩-style icon used in the footer.
+  const SVG_ENTER =
+    '<svg viewBox="0 0 12 12" width="11" height="11" class="inline-block align-[-1px]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3L9.5 6.5L3.5 6.5"/><path d="M5.5 4.5L3.5 6.5L5.5 8.5"/></svg>';
+
+  // Cache each row's server-rendered hint markup so we can restore it after
+  // swapping the active row's hint for the Enter indicator. Using innerHTML
+  // because the hint can be inline SVG (external/next) or plain text.
+  const hintHTML = new Map<HTMLElement, string>();
+  rows.forEach((r) => {
+    const hintEl = r.querySelector<HTMLElement>('[data-cmdk-hint]');
+    if (hintEl) hintHTML.set(hintEl, hintEl.innerHTML);
+  });
+
+  // Platform-aware shortcut indicator. On Mac → ⌘K, on Windows/Linux → Ctrl K,
+  // on touch devices (mobile) → a magnifying-glass icon since there's no
+  // physical keyboard shortcut.
+  const isTouch =
+    typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
+  const isMac =
+    typeof navigator !== 'undefined' &&
+    /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+  const SHORTCUT_HTML = isTouch
+    ? '<svg viewBox="0 0 14 14" width="13" height="13" class="inline-block" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="4"/><path d="M9 9L12 12"/></svg>'
+    : isMac
+      ? '⌘K'
+      : 'Ctrl K';
+  document
+    .querySelectorAll<HTMLElement>('[data-cmdk-shortcut]')
+    .forEach((el) => {
+      el.innerHTML = SHORTCUT_HTML;
+    });
+
   if (overlay && input) {
     let active = 0;
 
@@ -267,7 +347,7 @@ const items: Item[] = [
       active = Math.max(0, Math.min(active, vis.length - 1));
       rows.forEach((r) => {
         const hintEl = r.querySelector<HTMLElement>('[data-cmdk-hint]');
-        if (hintEl) hintEl.textContent = r.dataset.hint || '';
+        if (hintEl) hintEl.innerHTML = hintHTML.get(hintEl) || '';
         r.classList.remove('cmd-active');
       });
       const current = vis[active];
@@ -275,7 +355,7 @@ const items: Item[] = [
         current.classList.add('cmd-active');
         if (!current.dataset.hint) {
           const hintEl = current.querySelector<HTMLElement>('[data-cmdk-hint]');
-          if (hintEl) hintEl.textContent = '↵';
+          if (hintEl) hintEl.innerHTML = SVG_ENTER;
         }
         current.scrollIntoView({ block: 'nearest' });
       }
