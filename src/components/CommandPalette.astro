@@ -220,25 +220,23 @@ const items: Item[] = [
               </span>
             </span>
             <span data-cmdk-hint class="shrink-0 pl-2 text-[12px] text-muted">
-              {
-                it.hint === 'external' ? (
-                  <Icon
-                    name="lucide:arrow-up-right"
-                    class="inline-block align-[-1px]"
-                    size={11}
-                    aria-hidden="true"
-                  />
-                ) : it.hint === 'next' ? (
-                  <Icon
-                    name="lucide:arrow-right"
-                    class="inline-block align-[-1px]"
-                    size={11}
-                    aria-hidden="true"
-                  />
-                ) : (
-                  it.hint
-                )
-              }
+              {it.hint === 'external' ? (
+                <Icon
+                  name="lucide:arrow-up-right"
+                  class="inline-block align-[-1px]"
+                  size={11}
+                  aria-hidden="true"
+                />
+              ) : it.hint === 'next' ? (
+                <Icon
+                  name="lucide:arrow-right"
+                  class="inline-block align-[-1px]"
+                  size={11}
+                  aria-hidden="true"
+                />
+              ) : (
+                it.hint
+              )}
             </span>
           </button>
         ))
@@ -278,10 +276,12 @@ const items: Item[] = [
   </div>
 </div>
 
-{/* Icon source for the runtime-injected indicators in the script below:
+{
+  /* Icon source for the runtime-injected indicators in the script below:
     the Enter glyph swapped onto the active row, and the search glyph used
     on the navbar trigger / mobile. Hidden templates so lucide renders them
-    at build time and the script just clones the markup. */}
+    at build time and the script just clones the markup. */
+}
 <template data-cmdk-icon="enter">
   <Icon
     name="lucide:corner-down-left"
@@ -291,7 +291,12 @@ const items: Item[] = [
   />
 </template>
 <template data-cmdk-icon="search">
-  <Icon name="lucide:search" class="inline-block" size={13} aria-hidden="true" />
+  <Icon
+    name="lucide:search"
+    class="inline-block"
+    size={13}
+    aria-hidden="true"
+  />
 </template>
 
 <script>
