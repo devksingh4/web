@@ -279,7 +279,7 @@ export const portfolio: Portfolio = {
         {
           degree: 'BS, Computer Science',
           dates: '2022 — 2025',
-          note: 'Minor in Business. Infrastructure Chair, ACM @ UIUC. Former Treasurer, ACM @ UIUC.',
+          note: 'Graduated with Highest Honors. Minor in Business. Infrastructure Chair, ACM @ UIUC. Former Treasurer, ACM @ UIUC.',
         },
       ],
     },
