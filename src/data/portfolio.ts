@@ -147,7 +147,7 @@ export const portfolio: Portfolio = {
       kind: 'Open source',
       desc: "Parser that converts Canvas/QTI exports into PrairieLearn's native format, automating assessment migration that used to be fully manual. Shipped upstream into PrairieLearn, the open-source platform used across many universities.",
       stack: ['Python', 'XML', 'PrairieLearn'],
-      href: 'https://github.com/PrairieLearn/PrairieLearn',
+      href: 'https://www.prairielearn.com/about/blog/qti-content-importing',
     },
     {
       year: '2026',
